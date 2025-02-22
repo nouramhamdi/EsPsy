@@ -4,23 +4,26 @@ pipeline {
     stages {
         stage('Install dependencies') {
             steps {
-                script {
-                    sh 'npm install'
-                }
+                 dir('back') {
+                        sh 'npm install'
+                    }
             }
         }
         stage('Unit Test') {
             steps {
                 script {
-                    sh 'npm test'
+                    dir('back'){
+                        sh 'npm test'
+                    }
+                    
                 }
             }
         }
         stage('Build application') {
             steps {
-                script {
-                    sh 'npm run build-dev'
-                }
+                     dir('back') {
+                        sh 'npm run build-dev'
+                    }
             }
         }
     }
