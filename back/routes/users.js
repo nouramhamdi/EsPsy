@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 const userController = require("../Controllers/userController");
 const upload = require("../middlewares/uploadFile")
-const {requireAuthUser} = require('../middlewares/authMiddlewares')
+const { validateUserInput, handleValidationErrors } = require('../middlewares/validateUserInput');
 const userModel = require("../Models/userModel"); 
 
 
@@ -10,7 +10,22 @@ const userModel = require("../Models/userModel");
 router.get('/getAllUser',userController.getUsers );
 router.get('/getUsersByName/:fullname', userController.getUsersByName);
 router.get('/getUserById/:id',userController.getUserByID );
-router.post('/addUser',userController.addUser );
+//router.post('/addUser',userController.addUser );
+router.post('/addUser', validateUserInput, handleValidationErrors, async (req, res) => {
+    try {
+      const { fullname, username, email, password, age, datebirth, number, role, image_user } = req.body;
+  
+      // Créer un nouvel utilisateur
+      const newUser = new User({
+        fullname, username, email, password, age, datebirth, number, role, image_user
+      });
+  
+      await newUser.save();
+      res.status(201).json({ message: 'User created successfully', user: newUser });
+    } catch (err) {
+      res.status(500).json({ message: 'Server error', error: err.message });
+    }
+  });
 router.post('/addwithImg',upload.single("image_user"),userController.addUser );
 router.delete('/deleteUser/:id',userController.deleteUser );
 router.put('/updateUserImg/:id',upload.single("image_user"),userController.updateUserImg );
