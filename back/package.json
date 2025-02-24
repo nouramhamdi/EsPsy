@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "start": "node app.js",
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.js",
+    "test": "mocha",
+    "test:coverage": "nyc --reporter=lcov npm test"
   },
   "dependencies": {
     "all": "^0.0.0",
@@ -25,5 +27,10 @@
     "multer": "^1.4.5-lts.1",
     "nodemailer": "^6.10.0",
     "nodemon": "^3.1.3"
+  },
+  "devDependencies": {
+    "chai": "^5.2.0",
+    "mocha": "^11.1.0",
+    "nyc": "^17.1.0"
   }
 }
