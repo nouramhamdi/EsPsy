@@ -9,13 +9,10 @@ pipeline {
                     }
             }
         }
-        stage('Unit Test') {
+       stage('Run Tests and Generate Coverage') {
             steps {
-                script {
-                    dir('back'){
-                        sh 'npm test'
-                    }
-                    
+                dir('back') {
+                    sh 'npm run test:coverage'
                 }
             }
         }
@@ -30,7 +27,7 @@ pipeline {
     }
         }
     }
-    
+
         stage('Build application') {
             steps {
                      dir('back') {
