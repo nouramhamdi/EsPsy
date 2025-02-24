@@ -6,7 +6,8 @@
     "start": "node app.js",
     "dev": "nodemon app.js",
     "test": "mocha",
-    "test:coverage": "nyc --reporter=lcov npm test"
+    "test:coverage": "nyc --reporter=lcov npm test",
+    "build-dev": "webpack --config webpack.dev.js --mode development"
   },
   "dependencies": {
     "all": "^0.0.0",
