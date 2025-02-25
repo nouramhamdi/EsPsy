@@ -5,6 +5,7 @@
   "scripts": {
     "start": "node app.js",
     "test": "mocha",
+    "test:coverage": "nyc --reporter=lcov npm test",
     "build-dev": "webpack --config webpack.dev.js --mode development"
   },
   "dependencies": {
