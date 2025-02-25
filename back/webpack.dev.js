@@ -23,6 +23,10 @@ module.exports={
 
         rules: [
             {
+                test: /\.html$/,
+                use: 'html-loader',
+              },
+            {
                 test:/\.js$/,
                 exclude:/node_modules/,
                 loader:"babel-loader"
