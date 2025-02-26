@@ -22,29 +22,23 @@ const generateVerificationCode = () => {
 // Add a new user
 module.exports.addUser = async (req, res) => {
   try {
-    const { fullname, username, age, email, password, datebirth, number, role } = req.body;
-    const image_user = req.file ? req.file.filename : "client.png";
+    const { fullname, username, email, password, datebirth, number, role } = req.body;
     
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
-
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@esprit\.tn$/;
-
-    if (!emailRegex.test(email)) {
-      return res.status(400).json({ message: "Invalid email. The email must be in the format of 'example@esprit.tn'" });
+    const existingUser = await userModel.findOne({ email : email });
+    if (existingUser) {
+       return res.status(401).json({ message :'This Email is already registered' });
     }
-
 
     const newUser = new userModel({
       fullname,
       username,
-      age,
       email,
-      password: hashedPassword,
+      password,
       datebirth: new Date(datebirth),
       number,
-      role: role || "user", // Default to 'user' if role not provided
-      image_user,
+      role: role || "user", 
+      blocked:false,
+      lastActiveAt: new Date()
     });
 
     const addedUser = await newUser.save();
@@ -57,9 +51,9 @@ module.exports.addUser = async (req, res) => {
 // Get all users
 module.exports.getUsers = async (req, res) => {
   try {
-    sendVerificationEmail("yosr.kheriji@esprit.tn").then((code) => {
+   /* sendVerificationEmail("yosr.kheriji@esprit.tn").then((code) => {
       console.log("Verification code sent:", code);
-    });
+    });*/
     
     const users = await userModel.find();
     if (!users || users.length === 0) {
@@ -112,35 +106,41 @@ module.exports.getUsersByName = async (req, res) => {
 
 
 // Update user details
+
 module.exports.updateUser = async (req, res) => {
   try {
     const { id } = req.params;
-    const { fullname, username, age, email, datebirth, number, role } = req.body;
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@esprit\.tn$/;
+    const { fullname, username, email, number, password } = req.body;
 
-    if (!emailRegex.test(email)) {
-      return res.status(400).json({ message: "Invalid email. The email must be in the format of 'example@esprit.tn'" });
-    }
-
-    const updatedUser = await userModel.findByIdAndUpdate(
-      id,
-      {
-        $set: {
-          fullname,
-          username,
-          age,
-          email,
-          datebirth: datebirth ? new Date(datebirth) : undefined,
-          number,
-          role,
-        },
-      },
-      { new: true }
-    );
-
-    if (!updatedUser) {
+    // Find the user by ID
+    const user = await userModel.findById(id);
+    if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
+
+    // Prepare the update object
+    const updateData = {
+      fullname,
+      username,
+      email,
+      number,
+    };
+
+    // Hash the new password if provided and different from the current password
+    if (password) {
+      const isPasswordMatch = await bcrypt.compare(password, user.password);
+      if (!isPasswordMatch) {
+        const hashedPassword = await bcrypt.hash(password, 10);
+        updateData.password = hashedPassword;
+      }
+    }
+
+    // Update the user
+    const updatedUser = await userModel.findByIdAndUpdate(
+      id,
+      { $set: updateData },
+      { new: true }
+    );
 
     res.status(200).json({ updatedUser });
   } catch (err) {
@@ -148,29 +148,69 @@ module.exports.updateUser = async (req, res) => {
   }
 };
 
-// Update user password with hashing
-module.exports.updateUserPassword = async (req, res) => {
+module.exports.changeRole = async (req, res) => {
   try {
-    const { id } = req.params;
-    const { password } = req.body;
+      const { id } = req.params;
+      const { newRole } = req.body;
 
-    const salt = await bcrypt.genSalt();
-    const hashedPassword = await bcrypt.hash(password, salt);
+      // Validate role
+      const validRoles = ['admin', 'user', 'psychologist', 'teacher'];
+      if (!validRoles.includes(newRole)) {
+          return res.status(400).json({ 
+              success: false,
+              message: 'Invalid role specified' 
+          });
+      }
 
-    const updatedUser = await userModel.findByIdAndUpdate(
-      id,
-      { $set: { password: hashedPassword } },
-      { new: true }
-    );
+      // Update user
+      const updatedUser = await userModel.findByIdAndUpdate(
+        id,
+        { $set: { role: newRole } },
+        { new: true }
+      );
 
-    if (!updatedUser) {
-      return res.status(404).json({ message: "User not found" });
-    }
+      if (!updatedUser) {
+          return res.status(404).json({
+              success: false,
+              message: 'User not found'
+          });
+      }
 
-    res.status(200).json({ message: "Password updated successfully" });
-  } catch (err) {
-    res.status(500).json({ message: err.message });
+      res.json({
+          success: true,
+          user: updatedUser
+      });
+  } catch (error) {
+      console.error('Error changing role:', error);
+      res.status(500).json({
+          success: false,
+          message: error.message
+      });
   }
+};
+
+
+module.exports.updateUserPassword = async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { password } = req.body;
+
+      const hashedPassword = await bcrypt.hash(password, 10);
+
+      const updatedUser = await userModel.findByIdAndUpdate(
+        id,
+        { $set: { password: hashedPassword } },
+        { new: true }
+      );
+
+      if (!updatedUser) {
+        return res.status(404).json({ message: "User not found" });
+      }
+
+      res.status(200).json({ message: "Password updated successfully" });
+    } catch (err) {S
+      res.status(500).json({ message: err.message });
+    }
 };
 
 // Update user image
@@ -211,12 +251,31 @@ module.exports.deleteUser = async (req, res) => {
   }
 };
 
+
 // User login
+module.exports.updateLastActive = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updatedUser = await userModel.findByIdAndUpdate(
+       id,
+       { $set: { lastActiveAt: new Date() } },
+       { new: true } // Ensure the updated document is returned
+    );
+    if (!updatedUser) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    res.status(200).json({ updatedUser });
+  } catch (error) {
+    console.error('Error updating last active timestamp:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
 module.exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
     const user = await userModel.login(email, password);
-
+    
     const token = createToken(user._id);
     req.session.user = user;
     req.session.save();
@@ -274,5 +333,122 @@ const sendVerificationEmail = async (email) => {
   } catch (error) {
     console.error("Error sending email:", error);
     throw new Error("Failed to send verification email");
+  }
+};
+
+
+
+
+//block user
+
+exports.blockUser = async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const user = await userModel.findByIdAndUpdate(userId, { $set: { blocked: true } }, { new: true });
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    res.status(200).json({ message: 'User blocked successfully', user });
+  } catch (error) {
+    res.status(500).json({ message: 'An error occurred', error });
+  }
+};
+
+exports.unblockUser = async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const user = await userModel.findByIdAndUpdate(userId, { $set: { blocked: false } }, { new: true });
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    res.status(200).json({ message: 'User blocked successfully', user });
+  } catch (error) {
+    res.status(500).json({ message: 'An error occurred', error });
+  }
+};
+
+
+
+//stats
+/*
+ module.exports.getActiveUsersStats = async (req,res) => {
+  try {
+    // Calculate the start date (7 days ago)
+    const startDate = new Date();
+    startDate.setDate(startDate.getDate() - 7);
+
+    // Aggregate active users by date
+    const stats = await userModel.aggregate([
+      {
+        $match: {
+          lastActiveAt: { $gte: startDate },
+        },
+      },
+      {
+        $project: {
+          date: { $dateToString: { format: "%Y-%m-%d", date: "$lastActiveAt" } },
+        },
+      },
+      {
+        $group: {
+          _id: "$date",
+          activeUserCount: { $sum: 1 },
+        },
+      },
+      {
+        $sort: { _id: 1 }, // Sort by date ascending
+      },
+    ]);
+
+    // Format the result
+    const result = stats.map(stat => ({
+      date: stat._id,
+      activeUserCount: stat.activeUserCount,
+    }));
+
+    
+    return res.status(200).json({ result });
+
+  } catch (error) {
+    console.error('Error fetching active users stats:', error);
+    throw error;
+  }
+};*/
+
+
+
+module.exports.getUsersByRole = async (req, res) => {
+  try {
+    const roleStats = await userModel.aggregate([
+      {
+        $group: {
+          _id: null,
+          users: {
+            $sum: { $cond: [{ $eq: ["$role", "user"] }, 1, 0] }
+          },
+          teachers: {
+            $sum: { $cond: [{ $eq: ["$role", "teacher"] }, 1, 0] }
+          },
+          psychologists: {
+            $sum: { $cond: [{ $eq: ["$role", "psychologist"] }, 1, 0] }
+          }
+        }
+      },
+      { $project: { _id: 0 } }
+    ]);
+
+    // Handle case with no users
+    const result = roleStats[0] || { 
+      users: 0, 
+      teachers: 0, 
+      psychologists: 0 
+    };
+
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message
+    });
   }
 };

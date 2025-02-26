@@ -5,7 +5,6 @@ const userSchema = new mongoose.Schema(
   {
     fullname: String,    
     username: String,
-    age: Number,
     email: String,
     password: String,
     datebirth: { type: Date },
@@ -14,6 +13,8 @@ const userSchema = new mongoose.Schema(
       type: String,
       enum: ["admin", "user","psychologist","teacher"],
     },
+    blocked: { type: Boolean, default: false },
+    lastActiveAt: { type: Date },
     image_user: { type: String, required: false, default: "client.png" },
 
   },
@@ -27,10 +28,11 @@ userSchema.post("save", async function (req, res, next) {
 
 userSchema.pre("save", async function (next) {
   try {
-    const salt = await bcrypt.genSalt();
-    const User = this;
-    User.password = await bcrypt.hash(User.password, salt);
     
+    const User = this;
+    if (this.isModified('password')) {
+      this.password = await bcrypt.hash(this.password, 10);
+    }    
     (User.CreatedAt = new Date()), (User.UpdatedAt = new Date()), next();
   } catch (err) {
     next(err);
@@ -39,7 +41,10 @@ userSchema.pre("save", async function (next) {
 
 userSchema.statics.login = async function (email, password) {
   const user = await this.findOne({ email: email });
+
   if (user) {
+    
+    console.log("Stored hashed password: ", user.password);
     const auth = await bcrypt.compare(password, user.password);
     if (auth) {
       // if(user.etat === true) {
@@ -47,7 +52,7 @@ userSchema.statics.login = async function (email, password) {
       // }
       // throw new Error('incorrect password')
     }
-    throw new Error('incorrect password')
+    throw new Error('incorrect password',user.password)
   }
   throw Error('incorrect email')
 };
