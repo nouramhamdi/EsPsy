@@ -1,0 +1,37 @@
+@keyframes slideAndFade {
+    0% {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+    15% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    85% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    100% {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+  }
+  
+  .fixed-notification {
+    position: fixed !important;
+    top: 20px !important;
+    left: 20px !important;
+    z-index: 9999 !important;
+    min-width: 300px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    /* Reset any potential inherited properties */
+    margin: 0 !important;
+    float: none !important;
+    clear: none !important;
+  }
+  
+  .animate-slideAndFade {
+    animation: slideAndFade 4s ease-in-out forwards;
+  }
