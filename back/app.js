@@ -7,6 +7,7 @@ var http = require('http');
 const cors = require('cors');
 const {connectToMongoDB} = require('./db/BD')
 const bodyParser = require("body-parser");
+const passport = require('./config/passport');
 
 ///////
 require("dotenv").config();
@@ -14,6 +15,8 @@ require("dotenv").config();
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 const chatbotRoutes = require("./routes/chatbot");
+const authGoogle = require('./routes/authGoogle');
+
 
 
 
@@ -49,6 +52,10 @@ app.use(session({
 }))
 
 
+app.use(passport.initialize());
+app.use(passport.session());
+
+
 
 
 
@@ -56,6 +63,7 @@ app.use(session({
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use("/api", chatbotRoutes);
+app.use("/auth", authGoogle);
 
 
 
