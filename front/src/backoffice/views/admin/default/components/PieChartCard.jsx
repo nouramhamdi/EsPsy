@@ -3,7 +3,7 @@ import { pieChartData, pieChartOptions } from "../../../../variables/charts";
 import Card from "../../../../components/card";
 import { useEffect, useState } from "react";
 import userServices from "../.././../../../Services/UserService"
-const PieChartCard = () => {
+const PieChartCard = ({tableData}) => {
 
   const [Data, setData] = useState([63, 25, 12]);
   const [usersP, setUsersP] = useState(0);
@@ -18,9 +18,9 @@ const PieChartCard = () => {
         setData([stats.users,stats.teachers,stats.psychologists])
         const totalUsers = stats.users + stats.teachers + stats.psychologists;
 
-        setUsersP((stats.users / totalUsers) * 100)
-        setTeachersP((stats.teachers / totalUsers) * 100)
-        setPsychologistsP((stats.psychologists / totalUsers) * 100)
+        setUsersP(((stats.users / totalUsers) * 100).toFixed(2))
+        setTeachersP(((stats.teachers / totalUsers) * 100).toFixed(2))
+        setPsychologistsP(((stats.psychologists / totalUsers) * 100).toFixed(2))
 
       } catch (error) {
         console.error('Error loading stats:', error);
@@ -28,7 +28,7 @@ const PieChartCard = () => {
     };
 
     fetchRoleStats();
-  }, []);
+  }, tableData);
 
   return (
     <Card extra="rounded-[20px] p-3">

@@ -112,6 +112,46 @@ const userServices = {
       throw error;
     }
   },
+
+  MailAfterSignUp: async (userId) => {
+    try {
+      const response = await axios.get(`${API_URL}/MailAfterSignUp/${userId}`, {
+        withCredentials: true, // Ensure cookies are sent with the request
+      });
+      return response.data; // Return the user data
+    } catch (error) {
+      console.error("Error fetching session user:", error.response?.data || error.message);
+      throw error;
+    }
+  },
+  GetPendingRequests: async () => {
+    try {
+      const response = await axios.get(`${API_URL}/pending-requests`);
+      return response.data; // Return the actual data from response
+    } catch (error) {
+      console.error("Error fetching pending-requests :", error.response?.data || error.message);
+      throw error;
+    }
+  },
+  AcceptRequest: async (userId) => {
+    try {
+      const response = await axios.put(`${API_URL}/accept-request/${userId}`);
+      return response.data; // Return the updated user data
+    } catch (error) {
+      console.error("Error accepting request:", error.response?.data || error.message);
+      throw error;
+    }
+  },
+
+  CancelRequest: async (userId) => {
+    try {
+      const response = await axios.delete(`${API_URL}/cancel-request/${userId}`);
+      return response.data; // Return the success message
+    } catch (error) {
+      console.log("Error canceling request:", error.response?.data || error.message);
+      throw error;
+    }
+  },
 };
 
 export default userServices;

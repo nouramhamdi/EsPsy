@@ -7,13 +7,17 @@ var http = require('http');
 const cors = require('cors');
 const {connectToMongoDB} = require('./db/BD')
 const bodyParser = require("body-parser");
+const passport = require('./config/passport');
 
 ///////
 require("dotenv").config();
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var AppointmentsRouter = require('./routes/appointment');
 const chatbotRoutes = require("./routes/chatbot");
+const authGoogle = require('./routes/authGoogle');
+
 
 
 
@@ -49,13 +53,19 @@ app.use(session({
 }))
 
 
+app.use(passport.initialize());
+app.use(passport.session());
+
+
 
 
 
 ///// appel routes
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/appointments', AppointmentsRouter);
 app.use("/api", chatbotRoutes);
+app.use("/auth", authGoogle);
 
 
 

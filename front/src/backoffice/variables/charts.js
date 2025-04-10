@@ -117,7 +117,7 @@ export const barChartOptionsDailyTraffic = {
 
 
 export const pieChartOptions = {
-  labels: ["Users", "Teachers", "Psychologists"],
+  labels: ["Students", "Teachers", "Psychologists"],
   colors: ["#4318FF", "#6AD2FF", "#7551ff"],
   chart: {
     width: "50px",

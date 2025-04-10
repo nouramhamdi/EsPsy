@@ -2,8 +2,24 @@ import React, { useEffect, useState } from "react";
 import InputField from "../../components/fields/InputField";
 import { Link, useNavigate } from "react-router-dom";
 import userServices from "../../../Services/UserService"; // Importing the userServices
+import NotificationCard from "backoffice/components/card/NotificationCard";
 
 export default function SignUp() {
+    const [notification, setNotification] = useState({
+      show: false,
+      message: "",
+      type: "", // success, error, warning
+    });
+  
+    const showNotification = (message, type) => {
+      setNotification({ show: true, message, type });
+    };
+  
+    const closeNotification = () => {
+      setNotification({ show: false, message: "", type: "" });
+    };
+
+
   const [errors, setErrors] = useState({
     fullname: "",
     username: "",
@@ -91,18 +107,38 @@ export default function SignUp() {
     }
 
     // Phone Number Validation
-    if (!formData.phoneNumber.trim()) {
+    if (!String(formData.phoneNumber).trim()) {
       newErrors.phoneNumber = "Phone Number is required";
       isValid = false;
-    } else if (!/^\d+$/.test(formData.phoneNumber)) {
-      newErrors.phoneNumber = "Phone Number must contain only numbers";
+    } else if (!/^\d{8}$/.test(formData.phoneNumber)) {
+      newErrors.phoneNumber = "Phone Number must be exactly 8 digits long";
+      isValid = false;
+    } else if (!/^(2|5|7|9)\d{7}$/.test(formData.phoneNumber)) {
+      newErrors.phoneNumber = "Phone Number must be a tunisian number";
       isValid = false;
     }
+    
 
     // Date of Birth Validation
     if (!formData.dateOfBirth) {
       newErrors.dateOfBirth = "Date of Birth is required";
       isValid = false;
+    } else {
+      const birthDate = new Date(formData.dateOfBirth);
+      const today = new Date();
+      let age = today.getFullYear() - birthDate.getFullYear();
+      const monthDiff = today.getMonth() - birthDate.getMonth();
+      const dayDiff = today.getDate() - birthDate.getDate();
+    
+      // Adjust age if the birthday hasn't occurred yet this year
+      if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
+        age--;
+      }
+    
+      if (age < 16) {
+        newErrors.dateOfBirth = "You must be at least 16 years old";
+        isValid = false;
+      }
     }
 
     // Role Validation
@@ -122,7 +158,7 @@ export default function SignUp() {
     password: "",
     phoneNumber: "",
     dateOfBirth: "",
-    role: "user",
+    role: "student",
   });
 
   const handleChange = (e) => {
@@ -145,21 +181,26 @@ export default function SignUp() {
       role: formData.role,
     };
     try {
-      const response = await userServices.addUser(dataToSend); // Sending data to backend
-      console.log("User registered successfully:", response.addedUser);
-      
-      const loggeduser = response.addedUser
-      localStorage.setItem("loggedUser", JSON.stringify(loggeduser));
-      
-      if(loggeduser.role=="user"){
+      const response = await userServices.addUser(dataToSend); // Sending data to backend      
+ 
+     
+
+      if(dataToSend.role==="student" ){
+        const loggeduser = response.addedUser
+        localStorage.setItem("loggedUser", JSON.stringify(loggeduser));
+        await userServices.MailAfterSignUp(loggeduser._id);
         window.location.href = 'http://localhost:3000/app';
       }
       else{
-         navigate('/admin')
+        showNotification("You have to send Registration Request","info" );
+        
+        setTimeout(() => {
+          navigate(`/auth/contactAdmin/${dataToSend.email}`)
+        }, 4000);
       }
     } catch (error) {
       console.error("Error registering user:", error);
-      alert("Error registering user. Please try again.");
+      showNotification("Error registering user. Please try again.","error" );
     }
   };
 
@@ -209,10 +250,10 @@ export default function SignUp() {
             variant="auth"
             extra="mb-3"
             label="Email*"
-            placeholder="mail@simmmple.com"
+            placeholder="mail@eprit.tn"
             id="email"
             name="email"
-            type="email"
+            type="text"
             value={formData.email}
             onChange={handleChange}
           />
@@ -275,7 +316,7 @@ export default function SignUp() {
               onChange={handleChange}
               className="mt-1 block w-full rounded-lg border border-gray-300 bg-white p-2 text-gray-900 shadow-sm focus:border-brand-500 focus:ring focus:ring-brand-500 focus:ring-opacity-50 dark:border-gray-600 dark:bg-navy-800 dark:text-white"
             >
-              <option value="user">User</option>
+              <option value="student">Student</option>
               <option value="psychologist">Psychologist</option>
               <option value="teacher">Teacher</option>
             </select>
@@ -304,6 +345,12 @@ export default function SignUp() {
           </Link>
         </div>
       </div>
+        <NotificationCard
+          message={notification.message}
+          type={notification.type}
+          show={notification.show}
+          onClose={() => closeNotification()}
+        />
     </div>
   );
 }

@@ -11,11 +11,26 @@ const userSchema = new mongoose.Schema(
     number: Number,
     role: {
       type: String,
-      enum: ["admin", "user","psychologist","teacher"],
+      enum: ["admin", "student","psychologist","teacher"],
     },
     blocked: { type: Boolean, default: false },
     lastActiveAt: { type: Date },
     image_user: { type: String, required: false, default: "client.png" },
+    verificationToken: String,
+    resetPasswordExpire: Date,
+    verified: {
+      type: Boolean,
+      default: false
+    },
+    RequestRegistration: { type: Boolean},
+    RequestResponse:{ type: Boolean},
+    ResetPassword: { type: Boolean},
+    availability: [
+      {
+        date: Date, // Available date
+        slots: [{ time: String, booked: Boolean }], // Time slots
+      },
+    ],
 
   },
   { timestamps: true }

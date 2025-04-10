@@ -29,7 +29,7 @@ export default function Auth() {
               <div className="mb-auto flex flex-col pl-5 pr-5 md:pr-0 md:pl-12 lg:max-w-[48%] lg:pl-0 xl:max-w-full">
                 <Link to="/admin" className="mt-0 w-max lg:pt-10">
                   <div className="mx-auto flex h-fit w-fit items-center hover:cursor-pointer">
-                    <svg
+                  {/*   <svg
                       width="8"
                       height="12"
                       viewBox="0 0 8 12"
@@ -41,9 +41,9 @@ export default function Auth() {
                         fill="#A3AED0"
                       />
                     </svg>
-                    <p className="ml-3 text-sm text-gray-600">
+                   <p className="ml-3 text-sm text-gray-600">
                       Back to Dashboard
-                    </p>
+                    </p>*/}
                   </div>
                 </Link>
                    <Outlet />

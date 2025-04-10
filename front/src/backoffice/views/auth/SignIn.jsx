@@ -4,9 +4,24 @@ import { Link, useNavigate } from "react-router-dom";
 import InputField from "../../components/fields/InputField";
 import { FcGoogle } from "react-icons/fc";
 import userServices from "../../../Services/UserService"; // Importing the userServices
+import NotificationCard from "backoffice/components/card/NotificationCard";
 
 
 export default function SignIn() {
+  const [notification, setNotification] = useState({
+    show: false,
+    message: "",
+    type: "", // success, error, warning
+  });
+
+  const showNotification = (message, type) => {
+    setNotification({ show: true, message, type });
+  };
+
+  const closeNotification = () => {
+    setNotification({ show: false, message: "", type: "" });
+  };
+  
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -16,6 +31,8 @@ export default function SignIn() {
     email: "",
     password: "",
   });
+
+  const [Blocked,setBlocked] = useState(false);
 
   const navigate = useNavigate();
 
@@ -40,7 +57,11 @@ export default function SignIn() {
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
       newErrors.email = "Email is invalid";
       isValid = false;
+    } else if (!formData.email.endsWith("@esprit.tn")) {
+      newErrors.email = "Email must end with @esprit.tn";
+      isValid = false;
     }
+
 
     // Password Validation
     if (!formData.password.trim()) {
@@ -75,14 +96,23 @@ export default function SignIn() {
       localStorage.setItem("loggedUser", JSON.stringify(loggeduser.user));
       
       if(validateBlock(loggeduser.user)){
-        alert("you are blocked !")
+        showNotification("You are blocked ! ","error" );
+        setBlocked(true)
+        setTimeout(() => {
+          navigate(`/auth/contactAdmin/${loggeduser.email}`);
+        }, 4000);
         return ;
+        
       }
 
-      if(loggeduser.user.role=="user"){
+      if(loggeduser.user.role==="student"){
        window.location.href = 'http://localhost:3000/app';
       }
       else{
+        if(loggeduser.user.RequestRegistration === true && loggeduser.user.RequestResponse === false ) {
+          showNotification("Your Registration Request is not Accepted yet","info" );
+          return ;
+        }
         navigate('/admin')
       }
 
@@ -94,6 +124,10 @@ export default function SignIn() {
         password: "Invalid email or password",
       });
     }
+  };
+
+  const handleGoogleLogin = () => {
+    window.location.href = 'http://localhost:5000/auth/google';
   };
 
   return (
@@ -112,10 +146,10 @@ export default function SignIn() {
             variant="auth"
             extra="mb-3"
             label="Email*"
-            placeholder="mail@simmmple.com"
+            placeholder="mail@esprit.tn"
             id="email"
             name="email"
-            type="email"
+            type="text"
             value={formData.email}
             onChange={handleChange}
           />
@@ -141,12 +175,12 @@ export default function SignIn() {
 
           {/* Forgot Password */}
           <div className="mb-4 flex items-center justify-end px-2">
-            <a
+            <Link to="/auth/forgetpass"
               className="text-sm font-medium text-brand-500 hover:text-brand-600 dark:text-white"
               href=" "
             >
               Forgot Password?
-            </a>
+            </Link>
           </div>
 
           {/* Sign In Button */}
@@ -168,7 +202,7 @@ export default function SignIn() {
         </div>
 
         {/* Sign In with Google */}
-        <button className="mb-6 flex h-[50px] w-full items-center justify-center gap-2 rounded-xl bg-lightPrimary hover:cursor-pointer dark:bg-navy-800">
+        <button onClick={handleGoogleLogin}  className="mb-6 flex h-[50px] w-full items-center justify-center gap-2 rounded-xl bg-lightPrimary hover:cursor-pointer dark:bg-navy-800">
           <div className="rounded-full text-xl">
             <FcGoogle />
           </div>
@@ -190,6 +224,12 @@ export default function SignIn() {
           </Link>
         </div>
       </div>
+      <NotificationCard
+        message={notification.message}
+        type={notification.type}
+        show={notification.show}
+        onClose={() => closeNotification()}
+      />
     </div>
   );
 }

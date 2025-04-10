@@ -10,13 +10,22 @@ const { validateUserInput, handleValidationErrors } = require('../middlewares/va
 router.get('/getAllUser',userController.getUsers );
 router.get('/getUserByName/:fullname', userController.getUsersByName);
 router.get('/getUserById/:id',userController.getUserByID );
+router.get("/pending-requests", userController.getPendingRequests);
+
 //router.get('/getActiveUsersStats',userController.getActiveUsersStats );
-
+router.get('/MailAfterSignUp/:id',userController.MailAfterSignUp );
+router.get('/verify-account/:token', userController.verifyAccount);
 router.get('/role-stats',userController.getUsersByRole );
+router.post('/forgot-password',userController.forgotPassword );
+router.post('/reset-password',userController.ResetPassword );
 
+router.post('/contact-admin/:email', userController.CancelRequest);
 router.post('/addUser',validateUserInput, handleValidationErrors,userController.addUser );
 router.post('/addwithImg',upload.single("image_user"),userController.addUser );
+
 router.delete('/deleteUser/:id',userController.deleteUser );
+router.delete("/cancel-request/:id", userController.CancelRequest);
+
 
 router.put('/updateUserImg/:id',upload.single("image_user"),userController.updateUserImg );
 router.put('/updateUser/:id',userController.updateUser );
@@ -25,6 +34,7 @@ router.put('/blockUser/:id',userController.blockUser );
 router.put('/unblockUser/:id',userController.unblockUser );
 router.put('/updateLastActive/:id',userController.updateLastActive );
 router.put('/updatePassword/:id',userController.updateUserPassword );
+router.put("/accept-request/:id", userController.AcceptRequest);
 
 
 router.post('/login',userController.login );
@@ -49,7 +59,7 @@ router.get('/session-user', async (req, res) => {
       res.status(401).json({ message: "No user logged in." });
   }
 });
-
+router.get("/availability/:psychologistId", userController.getPsychologistAvailability);
 
 
 module.exports = router;

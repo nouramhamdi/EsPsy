@@ -68,10 +68,10 @@ const Header = () => {
                 <a href="#services">Ressources</a>
               </li>
               <li>
-                <a href="#departments">psychologists</a>
+                <Link to="/app/Doctors">psychologists</Link>
               </li>
               <li>
-                <a href="#doctors">My Appointments</a>
+                <Link to="/app/MyAppointments">My Appointments</Link>
               </li>
               <li>
                 <a href="#doctors">Self Care</a>

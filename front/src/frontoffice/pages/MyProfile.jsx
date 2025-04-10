@@ -2,7 +2,21 @@ import React, { useEffect, useState } from "react";
 import "../assets/css/myprofile.css";
 import userServices from "../../Services/UserService"
 import { useNavigate } from "react-router-dom";
+import NotificationCard from "backoffice/components/card/NotificationCard";
 const MyProfile = () => {
+  const [notification, setNotification] = useState({
+    show: false,
+    message: "",
+    type: "", // success, error, warning
+  });
+
+  const showNotification = (message, type) => {
+    setNotification({ show: true, message, type });
+  };
+
+  const closeNotification = () => {
+    setNotification({ show: false, message: "", type: "" });
+  };
   const [users, setUsers] = useState([]);
   useEffect(() => {
 
@@ -106,8 +120,11 @@ const MyProfile = () => {
     if (!String(formData.phone).trim()) {
       newErrors.phone = "Phone Number is required";
       isValid = false;
-    } else if (!/^\d+$/.test(formData.phone)) {
-      newErrors.phone = "Phone Number must contain only numbers";
+    } else if (!/^\d{8}$/.test(formData.phone)) {
+      newErrors.phone = "Phone Number must be exactly 8 digits long";
+      isValid = false;
+    } else if (!/^(2|5|7|9)\d{7}$/.test(formData.phone)) {
+      newErrors.phone = "Phone Number must be a tunisian number";
       isValid = false;
     }
 
@@ -149,10 +166,12 @@ const MyProfile = () => {
       // Call the update API
       const response = await userServices.updateUser(loggedUser._id, dataToSend);
       console.log("Update successful:", response.data);
-      alert("Profile updated successfully!");
+      showNotification("Profile updated successfully","success" );
+
     } catch (error) {
       console.error("Error updating profile:", error.response?.data || error.message);
-      alert("Failed to update profile. Please try again.");
+      showNotification("Failed to update profile. Please try again.","error" );
+
     }
   };
 
@@ -201,7 +220,7 @@ const MyProfile = () => {
                   {[
                     { icon: 'bi-person-badge', label: 'Username', value: loggedUser?.username },
                     { icon: 'bi-envelope-at', label: 'Email', value: loggedUser?.email },
-                    { icon: 'bi-calendar-event', label: 'Date of Birth', value: loggedUser?.datebirth.split('T')[0] },
+                    { icon: 'bi-calendar-event', label: 'Date of Birth', value: loggedUser?.datebirth?.split('T')[0] },
                     { icon: 'bi-phone', label: 'Contact', value: loggedUser?.number },
                   ].map((item, index) => (
                     <div className="col-12" key={index}>
@@ -278,6 +297,12 @@ const MyProfile = () => {
           </div>
         </div>
       </div>
+      <NotificationCard
+          message={notification.message}
+          type={notification.type}
+          show={notification.show}
+          onClose={() => closeNotification()}
+        />
     </section>
   );
 };

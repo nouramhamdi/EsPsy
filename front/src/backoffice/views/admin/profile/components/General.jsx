@@ -1,11 +1,25 @@
 import React, { useEffect, useState } from "react";
 import Card from "../../../../components/card";
 import userServices from "../../../../../Services/UserService"; // Adjust the path
+import NotificationCard from "backoffice/components/card/NotificationCard";
 
 const General = ({ loggedUser }) => {
+    const [notification, setNotification] = useState({
+      show: false,
+      message: "",
+      type: "", 
+    });
   
-  const [users, setUsers] = useState([]);
+    const showNotification = (message, type) => {
+      setNotification({ show: true, message, type });
+    };
+  
+    const closeNotification = () => {
+      setNotification({ show: false, message: "", type: "" });
+    };
 
+
+  const [users, setUsers] = useState([]);
   useEffect(() => {
 
     // Users.jsx
@@ -106,8 +120,11 @@ const General = ({ loggedUser }) => {
     if (!String(formData.phone).trim()) {
       newErrors.phone = "Phone Number is required";
       isValid = false;
-    } else if (!/^\d+$/.test(formData.phone)) {
-      newErrors.phone = "Phone Number must contain only numbers";
+    } else if (!/^\d{8}$/.test(formData.phone)) {
+      newErrors.phone = "Phone Number must be exactly 8 digits long";
+      isValid = false;
+    } else if (!/^(2|5|7|9)\d{7}$/.test(formData.phone)) {
+      newErrors.phone = "Phone Number must be a tunisian number";
       isValid = false;
     }
 
@@ -149,14 +166,20 @@ const General = ({ loggedUser }) => {
       // Call the update API
       const response = await userServices.updateUser(loggedUser._id, dataToSend);
       console.log("Update successful:", response.data);
-      alert("Profile updated successfully!");
+      showNotification("Profile updated successfully","success" );
+
     } catch (error) {
       console.error("Error updating profile:", error.response?.data || error.message);
-      alert("Failed to update profile. Please try again.");
+      showNotification("Failed to update profile. Please try again.","error" );
+
     }
   };
 
   return (
+
+
+    <>
+    
     <Card extra={"w-full h-full p-3"}>
       {/* Header */}
       <div className="mt-2 mb-8 w-full">
@@ -210,7 +233,7 @@ const General = ({ loggedUser }) => {
             <label className="text-sm text-brand-900 dark:text-white">Mail</label>
             <br />
             <input
-              type="email"
+              type="text"
               name="email"
               value={formData.email}
               onChange={handleChange}
@@ -284,7 +307,16 @@ const General = ({ loggedUser }) => {
           </button>
         </div>
       </form>
+
     </Card>
+
+      <NotificationCard
+                message={notification.message}
+                type={notification.type}
+                show={notification.show}
+                onClose={() => closeNotification()}
+      />
+    </>
   );
 };
 

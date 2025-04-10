@@ -87,7 +87,7 @@ export default function Admin(props) {
                />
             :
               <Navbar
-                username={"Adminn"}
+                username={""}
                 onOpenSidenav={() => setOpen(true)}
                 logoText={"EsPsy"}
                 brandText={currentRoute}

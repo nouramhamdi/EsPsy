@@ -8,22 +8,33 @@ import Profile from "./backoffice/views/admin/profile";
 
 // Auth Imports
 import Users from "backoffice/views/admin/users/users";
+import Appointments from "backoffice/views/admin/appointments/Appointments";
 
+import Requests from "backoffice/views/admin/sendRequest/SendRequest";
 
 // Icon Imports
 import {
-  //MdHome,
-  //MdOutlineShoppingCart,
-  //MdBarChart,
   MdPerson,
-  //MdLock,
+  MdPeople,
+  MdEvent,
+  MdBook,
+  MdChat,
+  MdAssignment,
+  MdQuiz,
+  MdGroup,
+  MdCalendarToday,
+  MdLibraryBooks,
+  MdSchedule,
+  MdPsychology
 } from "react-icons/md";
+import PatientFiles from "backoffice/views/admin/patientfiles/PatientFiles";
+
 
 
 
 
 const routes = [
-  //admin pages
+  // interfaces in admin,teacher and psychologist sessions
   {
     name: "My Profile",
     role:'allInterface',
@@ -32,46 +43,120 @@ const routes = [
     icon: <MdPerson className="h-6 w-6" />,
     component: <Profile />,
   },
+
+  //admin interface links
   {
     name: "Users Management",
     role:'admin',
     layout: "/admin",
     path: "users",
-    icon: <MdPerson className="h-6 w-6" />,
+    icon: <MdPeople className="h-6 w-6" />,
+    component: <Users />,
+  },
+  {
+    name: "Control Group discussions",
+    role:'admin',
+    layout: "/admin",
+    path: "GroupsManagmentControl",
+    icon: <MdChat className="h-6 w-6" />,
     component: <Users />,
   },
 
 
+
+
+
+  //teacher interface links
 { 
-  name: "Page teacher",
+  name: "View Events",
   role:'teacher',
   layout: "/admin",
-  path: "page",
-  icon: <MdPerson className="h-6 w-6" />,
+  path: "ViewEvents",
+  icon: <MdEvent className="h-6 w-6" />,
   component: <Profile />,
 },
+{ 
+  name: "View Ressources",
+  role:'teacher',
+  layout: "/admin",
+  path: "ViewRessources",
+  icon: <MdBook className="h-6 w-6" />,
+  component: <Profile />,
+},
+{ 
+  name: "Request Appointment",
+  role:'teacher',
+  layout: "/admin",
+  path: "RequestAppointment",
+  icon: <MdSchedule className="h-6 w-6" />,
+  component: <Requests />,
+},
+
+
+
+  //psychologist interface links
 {
-  name: "Page psychologist",
+  name: "Events Management",
   role:'psychologist',
   layout: "/admin",
-  path: "page2",
-  icon: <MdPerson className="h-6 w-6" />,
+  path: "EventsManagement",
+  icon: <MdEvent className="h-6 w-6" />,
+  component: <Users />,
+},
+
+{
+  name: "Ressources Management",
+  role:'psychologist',
+  layout: "/admin",
+  path: "RessourcesManagement",
+  icon: <MdBook className="h-6 w-6" />,
+  component: <Users />,
+},
+{
+  name: "Patients File Management",
+  role:'psychologist',
+  layout: "/admin",
+  path: "FilePatientsManagement",
+  icon: <MdSchedule className="h-6 w-6" />,
+  component: <PatientFiles/>,
+},
+{
+  name: "Appointments Management",
+  role:'psychologist',
+  layout: "/admin",
+  path: "AppointmentsManagement",
+  icon: <MdSchedule className="h-6 w-6" />,
+  component: <Appointments />,
+},
+{
+  name: "Tests Management",
+  role:'psychologist',
+  layout: "/admin",
+  path: "TestsManagement",
+  icon: <MdAssignment className="h-6 w-6" />,
+  component: <Users />,
+},
+{
+  name: "View Users",
+  role:'psychologist',
+  layout: "/admin",
+  path: "ViewUsers",
+  icon: <MdGroup className="h-6 w-6" />,
+  component: <Users />,
+},
+{
+  name: "Group discussions Management",
+  role:'psychologist',
+  layout: "/admin",
+  path: "GroupsManagment",
+  icon: <MdChat className="h-6 w-6" />,
   component: <Users />,
 },
 
 
 
 
-
   /*
-  {
-    name: "Forgot Password",
-    role: "allInterface",
-    layout: "/auth",
-    path: "forgot-password",
-    icon: <MdLock className="h-6 w-6" />,
-    component: <ForgotPassword />,
-  },
 
 
    {
@@ -96,5 +181,7 @@ const routes = [
     path: "data-tables",
     component: <DataTables />,
   },*/
+
+
 ];
 export default routes;
