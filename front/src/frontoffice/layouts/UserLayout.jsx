@@ -131,9 +131,11 @@ const UserLayout = () => {
   return (
     <div className="frontoffice">
       <Header />
+      
       <main className="main">
         <Outlet />
       </main>
+
       <Footer />
       <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
       <div id="preloader"></div>

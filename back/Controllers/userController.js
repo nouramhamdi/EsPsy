@@ -12,6 +12,25 @@ const createToken = (id) => {
 
 
 
+module.exports.getPsychologistAvailability = async (req, res) => {
+  try {
+    const { psychologistId } = req.params;
+
+    const psychologist = await User.findOne({ _id: psychologistId, role: "psychologist" });
+    if (!psychologist) {
+      return res.status(404).json({ message: "Psychologist not found" });
+    }
+
+    if (!psychologist.availability || psychologist.availability.length === 0) {
+      return res.status(200).json({ message: "No available slots", slots: [] });
+    }
+
+    res.json(psychologist.availability);
+  } catch (error) {
+    console.error("Error fetching availability:", error);
+    res.status(500).json({ message: "Error fetching availability", error });
+  }
+};
 
 
 

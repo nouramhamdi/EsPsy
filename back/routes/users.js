@@ -59,7 +59,7 @@ router.get('/session-user', async (req, res) => {
       res.status(401).json({ message: "No user logged in." });
   }
 });
-
+router.get("/availability/:psychologistId", userController.getPsychologistAvailability);
 
 
 module.exports = router;

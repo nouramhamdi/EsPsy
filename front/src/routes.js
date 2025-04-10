@@ -8,8 +8,16 @@ import Profile from "./backoffice/views/admin/profile";
 
 // Auth Imports
 import Users from "backoffice/views/admin/users/users";
+import Appointments from "backoffice/views/admin/appointments/Appointments";
+import Tests from "backoffice/views/admin/tests/Tests";
 
+import Requests from "backoffice/views/admin/sendRequest/SendRequest";
+import ReservationsTable from "./backoffice/views/admin/reservations/ReservationsTable";
 
+// Auth Imports
+import TableEvent from "./backoffice/views/events/components/TableEvent";
+import AddEvent from "./backoffice/views/events/components/AddEvent";
+import UpdateEvent from "./backoffice/views/events/components/UpdateEvent";
 // Icon Imports
 import {
   MdPerson,
@@ -25,7 +33,15 @@ import {
   MdSchedule,
   MdPsychology
 } from "react-icons/md";
+import PatientFiles from "backoffice/views/admin/patientfiles/PatientFiles";
+import AddGroup from "backoffice/views/admin/groupDiscussions/addGroup";
+import GroupDetails from "backoffice/views/admin/groupDiscussions/GroupDetails";
+import Reports from "backoffice/views/admin/groupDiscussions/Reports";
+import Groups from "./backoffice/views/admin/groupDiscussions/groups";
 
+import Resources from "backoffice/views/admin/resources/resourses";
+import ResourceDetails from "backoffice/views/admin/resources/components/ResourceDetails";
+import EditResource from "backoffice/views/admin/resources/components/EditResource";
 
 
 
@@ -56,7 +72,7 @@ const routes = [
     layout: "/admin",
     path: "GroupsManagmentControl",
     icon: <MdChat className="h-6 w-6" />,
-    component: <Users />,
+    component: <Reports />,
   },
 
 
@@ -86,20 +102,13 @@ const routes = [
   layout: "/admin",
   path: "RequestAppointment",
   icon: <MdSchedule className="h-6 w-6" />,
-  component: <Profile />,
+  component: <Requests />,
 },
 
 
 
   //psychologist interface links
-{
-  name: "Events Management",
-  role:'psychologist',
-  layout: "/admin",
-  path: "EventsManagement",
-  icon: <MdEvent className="h-6 w-6" />,
-  component: <Users />,
-},
+
 
 {
   name: "Ressources Management",
@@ -107,7 +116,31 @@ const routes = [
   layout: "/admin",
   path: "RessourcesManagement",
   icon: <MdBook className="h-6 w-6" />,
-  component: <Users />,
+  component: <Resources/>,
+},
+{
+  name: "Resource Details",
+  role: 'none',
+  layout: "/admin",
+  path: "resources/details/:id",
+  component: <ResourceDetails />,
+  hidden: true, // Cette route ne sera pas affichée dans le menu
+},
+{
+  name: "Edit Resource",
+  role: 'none',
+  layout: "/admin",
+  path: "resources/edit/:id",
+  component: <EditResource />,
+  hidden: true, // Cette route ne sera pas affichée dans le menu
+},
+{
+  name: "Patients File Management",
+  role:'psychologist',
+  layout: "/admin",
+  path: "FilePatientsManagement",
+  icon: <MdSchedule className="h-6 w-6" />,
+  component: <PatientFiles/>,
 },
 {
   name: "Appointments Management",
@@ -115,7 +148,7 @@ const routes = [
   layout: "/admin",
   path: "AppointmentsManagement",
   icon: <MdSchedule className="h-6 w-6" />,
-  component: <Users />,
+  component: <Appointments />,
 },
 {
   name: "Tests Management",
@@ -123,7 +156,7 @@ const routes = [
   layout: "/admin",
   path: "TestsManagement",
   icon: <MdAssignment className="h-6 w-6" />,
-  component: <Users />,
+  component: <Tests/>,
 },
 {
   name: "View Users",
@@ -133,17 +166,68 @@ const routes = [
   icon: <MdGroup className="h-6 w-6" />,
   component: <Users />,
 },
+
 {
   name: "Group discussions Management",
   role:'psychologist',
   layout: "/admin",
   path: "GroupsManagment",
   icon: <MdChat className="h-6 w-6" />,
-  component: <Users />,
+  component: <Groups />,
+},
+{
+  name: "Add Group Discussions",
+  role:'none',
+  layout: "/admin",
+  path: "addGroupPage",
+  icon: <MdChat className="h-6 w-6" />,
+  component: <AddGroup />,
 },
 
+{
+  name: "Group Discussions Details",
+  role:'none',
+  layout: "/admin",
+  path: "grpDetails/:id",
+  icon: <MdChat className="h-6 w-6" />,
+  component: <GroupDetails />,
+},
 
+{
+  name: "Events Management",
+  role:'psychologist',
+  layout: "/admin",
+  path: "EventsManagement",
+  icon: <MdEvent className="h-6 w-6" />,
+  component: <TableEvent/>
+  
+  ,
+},
+{
+  name: "Add Event",
+  role: "none",
+  layout: "/admin",
+  path: "EventsManagement/addEvenement",
+  icon: <MdEvent className="h-6 w-6" />,
+  component: <AddEvent />, // Assure-toi que ce composant existe
+},
 
+{
+  name: "Update Event",
+  role: "none",
+  layout: "/admin",
+  path: "EventsManagement/updateEvenement/:id",
+  icon: <MdEvent className="h-6 w-6" />,
+  component: <UpdateEvent />,
+},
+{
+  name: "Réservations",
+  role: "none",
+  layout: "/admin",
+  path: "reservations",
+  icon: <MdCalendarToday className="h-6 w-6" />,
+  component: <ReservationsTable />
+},
 
   /*
 

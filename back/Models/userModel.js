@@ -25,6 +25,12 @@ const userSchema = new mongoose.Schema(
     RequestRegistration: { type: Boolean},
     RequestResponse:{ type: Boolean},
     ResetPassword: { type: Boolean},
+    availability: [
+      {
+        date: Date, // Available date
+        slots: [{ time: String, booked: Boolean }], // Time slots
+      },
+    ],
 
   },
   { timestamps: true }

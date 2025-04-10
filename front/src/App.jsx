@@ -6,12 +6,24 @@ import AuthLayout from "./backoffice/layouts/auth";
 import UserLayout from './frontoffice/layouts/UserLayout';
 import HomePage from "./frontoffice/pages/HomePage";
 import MyProfile from "./frontoffice/pages/MyProfile";
+import Doctors from "./frontoffice/pages/Doctors";
+import Mytest from "./frontoffice/pages/Mytest";
+import TestPage from './frontoffice/pages/TestPage'; 
 import SignUp from "backoffice/views/auth/SignUp";
 import SignIn from "backoffice/views/auth/SignIn";
 import ForgotPassword from "backoffice/views/auth/forgetPassword";
+// import MyAppointments from "frontoffice/pages/MyAppointments";
 import VerifyAccount from "backoffice/views/auth/VerifyAccount";
 import ContactAdmin from "backoffice/views/auth/ContactAdmin";
 import ResetPassword from "backoffice/views/auth/ResetPassword";
+import BookAppointment from "frontoffice/pages/BookAppointment";
+import MyAppointments from "frontoffice/pages/MyAppointments";
+import GroupSupportPage from "frontoffice/pages/GroupSupportPage";
+import VideoCall from "backoffice/views/admin/groupDiscussions/components/VideoCall";
+import Resources from "./frontoffice/pages/resources";
+import ReservationsTable from "./backoffice/views/admin/reservations/ReservationsTable";
+import EventDetails from "./frontoffice/pages/EventDetails";
+import EventsSection from "frontoffice/components/EventsSection";
 
 const App = () => {
   return (
@@ -27,13 +39,25 @@ const App = () => {
         <Route path="verify-account/:token" element={<VerifyAccount />} />
       </Route>
 
-      <Route path="admin/*" element={<AdminLayout />} />
+      <Route path="admin/*" element={<AdminLayout />} >
+        <Route path="reservations" element={<ReservationsTable />} />
+      </Route>
+
       
       <Route path="app/*" element={<UserLayout />}>
         <Route index element={<HomePage />} />
         <Route path="profile" element={<MyProfile />} />
+        <Route path="doctors" element={<Doctors />} />
+        <Route path="appointment/:psychologistId" element={<BookAppointment />} />
+        <Route path='MyAppointments' element={<MyAppointments />} /> 
+        <Route path="mytest" element={<Mytest/>}  />
+        <Route path="test/:testId" element={<TestPage />} />
+        <Route path="groupsupport" element={<GroupSupportPage />} />
+        <Route path="resources" element={<Resources />} />
+        <Route path="event/:id" element={<EventDetails />} />
+        <Route path="events" element={<EventsSection />} />
       </Route>
-
+      <Route path="/call/:groupId" element={<VideoCall />} />
       <Route path="/" element={<Navigate to="/auth/sign-in" replace />} />
     </Routes>
   );
