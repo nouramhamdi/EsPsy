@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "start": "node app.js",
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.js",
+    "build": "babel . --out-dir dist --ignore node_modules,test"
+
   },
   "dependencies": {
     "@ffprobe-installer/ffprobe": "^2.1.2",
@@ -42,5 +44,10 @@
     "socket.io": "^4.8.1",
     "twilio": "^5.5.1",
     "uuid": "^11.1.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.27.0",
+    "@babel/core": "^7.26.10",
+    "@babel/preset-env": "^7.26.9"
   }
 }
