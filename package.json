@@ -1,0 +1,16 @@
+{
+  "name": "espsy",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+      "start": "node back/server.js",
+        "heroku-postbuild": "cd front && npm install && npm run build"
+
+
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}

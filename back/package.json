@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "start": "node app.js",
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.js",
+    "heroku-postbuild": "cd ../front && npm install && npm run build"
+
   },
   "dependencies": {
     "@ffprobe-installer/ffprobe": "^2.1.2",

@@ -16,6 +16,12 @@ mongoose.connect(process.env.MONGODB_URI, {
 })
 .then(() => console.log('MongoDB connected'))
 .catch(err => console.log('MongoDB connection error:', err));
+app.use(express.static(path.join(__dirname, '../front/build')));
+
+// Route fallback
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../front/build', 'index.html'));
+});
 
 // Routes
 app.use('/api/auth', require('./Routes/authRoutes'));

@@ -136,6 +136,7 @@ app.get('/api/responses', async (req, res) => {
   }
 });
 
+
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY, // Récupération de la clé API
 });
