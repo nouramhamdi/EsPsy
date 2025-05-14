@@ -333,7 +333,7 @@ exports.updateEventStatus = async (req, res) => {
         console.log("Titre de l'événement annulé:", event.title);
 
         // Importer le modèle de réservation et le service d'email
-        const { sendEventCancellationNotification } = require('../Services/emailService');
+        const { sendEventCancellationNotification } = require('../services/emailService');
 
         // Récupérer toutes les réservations pour cet événement
         const reservations = await Reservation.find({ idevent: id });
