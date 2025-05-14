@@ -44,7 +44,7 @@ module.exports.addUser = async (req, res) => {
     
     const existingUser = await userModel.findOne({ email : email });
     if (existingUser) {
-       return res.status(401).json({ message :'This Email is already registered' });
+       return res.status(401).json({ success: false, message :'This Email is already registered' });
     }
 
     const newUser = new userModel({
@@ -64,9 +64,9 @@ module.exports.addUser = async (req, res) => {
     }
     
     const addedUser = await newUser.save();
-    res.status(201).json({ addedUser });
+    res.status(201).json({ success: true, user: addedUser, message: "User registered successfully" });
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    res.status(500).json({ success: false, message: err.message });
   }
 };
 
