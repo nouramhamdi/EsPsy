@@ -172,6 +172,12 @@ if (!fs.existsSync(uploadDirectory)) {
   fs.mkdirSync(uploadDirectory, { recursive: true });
 }
 
+
+app.use((req, res, next) => {
+  console.log(`Incoming request: ${req.method} ${req.url}`);
+  next();
+});
+
 // Function to download and save the image
 async function downloadImage(imageUrl) {
   const response = await axios.get(imageUrl, { responseType: 'stream' });

@@ -42,61 +42,54 @@ router.post('/login',userController.login );
 router.post('/logout',userController.logout );
 
 router.get('/session-user', async (req, res) => {
-  
   if (req.session.user) {
-      try {
-          const user = await userModel.findById(req.session.user._id);
-      
-          if (!user) {
-              return res.status(404).json({ message: "No user found" });
-          }
-          
-          res.status(200).json({ user });
-      } catch (err) {
-          res.status(500).json({ message: err.message });
+    try {
+      const user = await userModel.findById(req.session.user._id);
+
+      if (!user) {
+        return res.status(404).json({ message: "No user found" });
       }
-  } 
-  else {
-      res.status(401).json({ message: "No user logged in." });
+
+      res.status(200).json({ user });
+    } catch (err) {
+      console.error('Database error:', err);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  } else {
+    res.status(401).json({ message: "No user logged in" });
   }
 });
+
 router.get("/availability/:psychologistId", userController.getPsychologistAvailability);
 // In your user routes file
 
 // Route pour évaluer un psychologue
 router.post('/:psychologistId/rate', requireAuthUser, async (req, res) => {
-
   try {
     const { rating, comment } = req.body;
     const psychologistId = req.params.psychologistId;
     const studentId = req.user._id;
 
-    // Validation de la note
     if (rating < 1 || rating > 5) {
-      return res.status(400).json({ message: 'La note doit être entre 1 et 5' });
+      return res.status(400).json({ message: 'La note doit être entre 1 et 5' }); // 400 is a valid status code for bad input
     }
 
-    // Trouver le psychologue
     const psychologist = await userModel.findById(psychologistId);
     if (!psychologist) {
-      return res.status(404).json({ message: 'Psychologue non trouvé' });
+      return res.status(404).json({ message: 'Psychologue non trouvé' }); // 404 for not found
     }
 
-    // Vérifier si l'étudiant a déjà noté ce psychologue
     const existingRatingIndex = psychologist.ratings.findIndex(
       r => r.studentId.toString() === studentId.toString()
     );
 
     if (existingRatingIndex >= 0) {
-      // Mettre à jour l'évaluation existante
       psychologist.ratings[existingRatingIndex].rating = rating;
       psychologist.ratings[existingRatingIndex].comment = comment;
     } else {
-      // Ajouter une nouvelle évaluation
       psychologist.ratings.push({ studentId, rating, comment });
     }
 
-    // Calculer la nouvelle moyenne
     const totalRatings = psychologist.ratings.reduce((sum, r) => sum + r.rating, 0);
     psychologist.averageRating = totalRatings / psychologist.ratings.length;
 
@@ -106,12 +99,13 @@ router.post('/:psychologistId/rate', requireAuthUser, async (req, res) => {
       message: 'Évaluation soumise avec succès', 
       averageRating: psychologist.averageRating,
       totalRatings: psychologist.ratings.length
-    });
+    }); // 200 for success
   } catch (error) {
     console.error('Erreur lors de la soumission de l\'évaluation:', error);
-    res.status(500).json({ message: 'Échec de la soumission de l\'évaluation' });
+    res.status(500).json({ message: 'Échec de la soumission de l\'évaluation' }); // 500 for server errors
   }
 });
+
 
 // Route pour obtenir les évaluations d'un psychologue
 router.get('/:psychologistId/ratings', async (req, res) => {
