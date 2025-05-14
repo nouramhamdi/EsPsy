@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:5000/appointments"; 
-const STUDENTS_API="http://localhost:5000/users";
+const API_URL = "https://espsy.onrender.com/appointments"; 
+const STUDENTS_API="https://espsy.onrender.com/users";
 
 
 const AppointmentService = {

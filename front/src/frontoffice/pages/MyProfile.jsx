@@ -231,7 +231,7 @@ const MyProfile = () => {
   const getImageUrl = () => {
     if (imagePreview) return imagePreview;
     return loggedUser?.image_user 
-      ? `http://localhost:5000/uploads/${loggedUser.image_user}`
+      ? `https://espsy.onrender.com/uploads/${loggedUser.image_user}`
       : avatar;
   };
   return (

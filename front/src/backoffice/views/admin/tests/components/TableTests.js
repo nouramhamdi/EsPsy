@@ -112,7 +112,7 @@ const TableTests = () => {
                   <td className="border-white/0 py-3 pr-4">
                     {test.image ? (
                       <img
-                        src={test.image.startsWith("http") ? test.image : `http://localhost:5000/public/uploads/${test.image}`}
+                        src={test.image.startsWith("http") ? test.image : `https://espsy.onrender.com/public/uploads/${test.image}`}
                         alt="Test"
                         className="w-16 h-16 object-cover rounded"
                       />

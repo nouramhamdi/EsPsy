@@ -29,7 +29,7 @@ Event Date: ${new Date(event.date).toLocaleDateString()}`;
   useEffect(() => {
     const fetchEvent = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/events/${id}`);
+        const response = await axios.get(`https://espsy.onrender.com/events/${id}`);
         const eventData = response.data;
 
         // Vérifier si l'événement est passé
@@ -49,7 +49,7 @@ Event Date: ${new Date(event.date).toLocaleDateString()}`;
     const checkReservation = async () => {
       if (loggedUser && loggedUser._id) {
         try {
-          const response = await axios.get(`http://localhost:5000/reservations/check/${id}/${loggedUser._id}`);
+          const response = await axios.get(`https://espsy.onrender.com/reservations/check/${id}/${loggedUser._id}`);
           setHasReservation(response.data.hasReservation);
         } catch (error) {
           console.error("Error while checking reservation:", error);
@@ -168,7 +168,7 @@ Event Date: ${new Date(event.date).toLocaleDateString()}`;
     };
 
     // Mettre à jour l'événement avec les en-têtes CORS appropriés
-    axios.put(`http://localhost:5000/events/update/${id}`, updatedEvent, {
+    axios.put(`https://espsy.onrender.com/events/update/${id}`, updatedEvent, {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
@@ -177,7 +177,7 @@ Event Date: ${new Date(event.date).toLocaleDateString()}`;
     })
       .then(response => {
         // Créer la réservation avec les en-têtes CORS appropriés
-        return axios.post('http://localhost:5000/reservations/ajouter', reservationData, {
+        return axios.post('https://espsy.onrender.com/reservations/ajouter', reservationData, {
           headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json'
@@ -224,7 +224,7 @@ Event Date: ${new Date(event.date).toLocaleDateString()}`;
     };
 
     // Supprimer la réservation
-    axios.delete(`http://localhost:5000/reservations/cancel/${id}/${loggedUser._id}`, {
+    axios.delete(`https://espsy.onrender.com/reservations/cancel/${id}/${loggedUser._id}`, {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
@@ -233,7 +233,7 @@ Event Date: ${new Date(event.date).toLocaleDateString()}`;
     })
       .then(response => {
         // Mettre à jour l'événement
-        return axios.put(`http://localhost:5000/events/update/${id}`, updatedEvent, {
+        return axios.put(`https://espsy.onrender.com/events/update/${id}`, updatedEvent, {
           headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json'

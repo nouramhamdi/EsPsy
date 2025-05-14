@@ -34,13 +34,13 @@ const Mytest = () => {
     if (imagePath.startsWith("http://") || imagePath.startsWith("https://")) {
       return imagePath;
     }
-    return `http://localhost:5000/public/uploads/${imagePath}`;
+    return `https://espsy.onrender.com/public/uploads/${imagePath}`;
   };
 
   // Fetch tests and check if user has passed any test
   useEffect(() => {
     axios
-      .get("http://localhost:5000/tests")
+      .get("https://espsy.onrender.com/tests")
       .then(async (response) => {
         const testsWithStatus = await Promise.all(
           response.data.map(async (test) => {
@@ -61,7 +61,7 @@ const Mytest = () => {
 
   const checkTestPassed = async (testId, userId) => {
     try {
-      const response = await axios.get(`http://localhost:5000/test-responses/${userId}/${testId}`);
+      const response = await axios.get(`https://espsy.onrender.com/test-responses/${userId}/${testId}`);
       return !!response.data; // Retourne true si une réponse existe
     } catch (error) {
       console.error("Error checking test status:", error);

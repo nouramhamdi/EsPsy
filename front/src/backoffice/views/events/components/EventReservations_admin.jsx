@@ -17,11 +17,11 @@ const EventReservations_admin = () => {
       try {
         setLoading(true);
         // Récupérer les détails de l'événement
-        const eventResponse = await axios.get(`http://localhost:5000/events/${id}`);
+        const eventResponse = await axios.get(`https://espsy.onrender.com/events/${id}`);
         setEvent(eventResponse.data);
 
         // Récupérer les réservations pour l'événement
-        const reservationsResponse = await axios.get(`http://localhost:5000/reservations/event/${id}`);
+        const reservationsResponse = await axios.get(`https://espsy.onrender.com/reservations/event/${id}`);
         setReservations(reservationsResponse.data);
       } catch (error) {
         console.error("Error fetching data:", error);

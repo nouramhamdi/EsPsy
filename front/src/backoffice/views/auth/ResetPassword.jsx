@@ -68,7 +68,7 @@ export default function ResetPassword() {
 
     try {
       const response = await axios.post(
-        `http://localhost:5000/users/reset-password`,
+        `https://espsy.onrender.com/users/reset-password`,
         { 
             newPassword: formData.newPassword,
             email:email

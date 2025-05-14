@@ -17,7 +17,7 @@ const TableEvent = () => {
     const fetchEvents = async () => {
       try {
         setLoading(true);
-        const response = await axios.get('http://localhost:5000/events');
+        const response = await axios.get('https://espsy.onrender.com/events');
         const activeEvents = response.data.filter(event => event.status !== 'cancelled');
         setEvents(activeEvents);
         setError(null);

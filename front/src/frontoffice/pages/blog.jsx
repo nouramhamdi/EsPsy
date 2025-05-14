@@ -36,7 +36,7 @@ const Blog = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get("http://localhost:5000/posts")
+      .get("https://espsy.onrender.com/posts")
       .then(async (res) => {
         const postsWithLikedBy = res.data.map((post) => ({
           ...post,
@@ -65,7 +65,7 @@ const Blog = () => {
   // Function to update recommended posts
   const updateRecommendedPosts = () => {
     axios
-      .get(`http://localhost:5000/posts/liked/${loggedUser._id}`)
+      .get(`https://espsy.onrender.com/posts/liked/${loggedUser._id}`)
       .then((res) => {
         const likedPosts = res.data.map((post) => ({
           ...post,
@@ -85,7 +85,7 @@ const Blog = () => {
           .slice(0, 3)
           .map(([word]) => word);
 
-        axios.get("http://localhost:5000/posts").then((allPostsRes) => {
+        axios.get("https://espsy.onrender.com/posts").then((allPostsRes) => {
           const allPosts = allPostsRes.data.map((post) => ({
             ...post,
             likedBy: Array.isArray(post.likedBy) ? post.likedBy : [],
@@ -185,7 +185,7 @@ const Blog = () => {
     if (media) formData.append("media", media);
 
     try {
-      const res = await axios.post("http://localhost:5000/posts/create", formData, {
+      const res = await axios.post("https://espsy.onrender.com/posts/create", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       const newPost = { ...res.data, likedBy: Array.isArray(res.data.likedBy) ? res.data.likedBy : [] };
@@ -218,7 +218,7 @@ const Blog = () => {
         return post;
       });
       setPosts(updatedPosts);
-      const res = await axios.put(`http://localhost:5000/posts/${id}/like`, {
+      const res = await axios.put(`https://espsy.onrender.com/posts/${id}/like`, {
         userId: loggedUser._id,
       });
       setPosts(
@@ -245,7 +245,7 @@ const Blog = () => {
     if (commentMedia[postId]) formData.append("media", commentMedia[postId]);
 
     try {
-      const res = await axios.post(`http://localhost:5000/posts/${postId}/comments`, formData, {
+      const res = await axios.post(`https://espsy.onrender.com/posts/${postId}/comments`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       setPosts(
@@ -270,7 +270,7 @@ const Blog = () => {
   // Delete a post
   const handleDeletePost = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/posts/${id}`);
+      await axios.delete(`https://espsy.onrender.com/posts/${id}`);
       setPosts(posts.filter((p) => p._id !== id));
       setRecommendedPosts(recommendedPosts.filter((p) => p._id !== id));
       setCommentPages((prev) => {
@@ -292,7 +292,7 @@ const Blog = () => {
   // Delete a comment
   const handleDeleteComment = async (postId, commentId) => {
     try {
-      await axios.delete(`http://localhost:5000/posts/${postId}/comments/${commentId}`);
+      await axios.delete(`https://espsy.onrender.com/posts/${postId}/comments/${commentId}`);
       setPosts(
         posts.map((post) =>
           post._id === postId
@@ -314,7 +314,7 @@ const Blog = () => {
     if (editPostMedia) formData.append("media", editPostMedia);
 
     try {
-      const res = await axios.put(`http://localhost:5000/posts/${postId}`, formData, {
+      const res = await axios.put(`https://espsy.onrender.com/posts/${postId}`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       setPosts(
@@ -344,7 +344,7 @@ const Blog = () => {
     if (editCommentMedia) formData.append("media", editCommentMedia);
 
     try {
-      const res = await axios.put(`http://localhost:5000/posts/${postId}/comments/${commentId}`, formData, {
+      const res = await axios.put(`https://espsy.onrender.com/posts/${postId}/comments/${commentId}`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       setPosts(
@@ -370,20 +370,20 @@ const Blog = () => {
   const startEditPost = (post) => {
     setEditPostId(post._id);
     setEditPostContent(post.content);
-    setEditPostPreview(post.media && post.media.length > 0 ? `http://localhost:5000/uploads/${post.media[0]}` : null);
+    setEditPostPreview(post.media && post.media.length > 0 ? `https://espsy.onrender.com/uploads/${post.media[0]}` : null);
   };
 
   // Start editing a comment
   const startEditComment = (comment) => {
     setEditCommentId(comment._id);
     setEditCommentText(comment.text);
-    setEditCommentPreview(comment.media ? `http://localhost:5000/uploads/${comment.media}` : null);
+    setEditCommentPreview(comment.media ? `https://espsy.onrender.com/uploads/${comment.media}` : null);
   };
 
   // Report a post
   const handleReportPost = async (postId) => {
     try {
-      await axios.post(`http://localhost:5000/posts/${postId}/report`, {
+      await axios.post(`https://espsy.onrender.com/posts/${postId}/report`, {
         userId: loggedUser._id,
       });
       alert("Post reported. Thank you!");
@@ -396,7 +396,7 @@ const Blog = () => {
   const handleCommentPageChange = async (postId, page) => {
     try {
       const res = await axios.get(
-        `http://localhost:5000/posts/${postId}/comments?page=${page}&limit=2`
+        `https://espsy.onrender.com/posts/${postId}/comments?page=${page}&limit=2`
       );
       setCommentPages((prev) => ({ ...prev, [postId]: page }));
       setCommentPagination((prev) => ({
@@ -461,7 +461,7 @@ const Blog = () => {
   const getImageUrl = (user) => {
     console.log("User for image:", user);
     return user?.image_user
-      ? `http://localhost:5000/uploads/${user.image_user}`
+      ? `https://espsy.onrender.com/uploads/${user.image_user}`
       : "https://via.placeholder.com/40";
   };
 
@@ -648,14 +648,14 @@ const Blog = () => {
                                   className="w-full max-h-96 object-cover rounded mb-4"
                                 >
                                   <source
-                                    src={`http://localhost:5000/uploads/${m}`}
+                                    src={`https://espsy.onrender.com/uploads/${m}`}
                                     type="video/mp4"
                                   />
                                 </video>
                               ) : (
                                 <img
                                   key={idx}
-                                  src={`http://localhost:5000/uploads/${m}`}
+                                  src={`https://espsy.onrender.com/uploads/${m}`}
                                   alt="Post media"
                                   className="w-full max-h-96 object-cover rounded mb-4"
                                 />
@@ -837,7 +837,7 @@ const Blog = () => {
                                     <p className="text-gray-600 m-1">{comment.text}</p>
                                     {comment.media && (
                                       <img
-                                        src={`http://localhost:5000/uploads/${comment.media}`}
+                                        src={`https://espsy.onrender.com/uploads/${comment.media}`}
                                         alt="Comment media"
                                         className="mt-2 w-full max-h-48 object-cover rounded"
                                       />
@@ -993,14 +993,14 @@ const Blog = () => {
                               className="w-full max-h-96 object-cover rounded mb-4"
                             >
                               <source
-                                src={`http://localhost:5000/uploads/${m}`}
+                                src={`https://espsy.onrender.com/uploads/${m}`}
                                 type="video/mp4"
                               />
                             </video>
                           ) : (
                             <img
                               key={idx}
-                              src={`http://localhost:5000/uploads/${m}`}
+                              src={`https://espsy.onrender.com/uploads/${m}`}
                               alt="Post media"
                               className="w-full max-h-96 object-cover rounded mb-4"
                             />
@@ -1182,7 +1182,7 @@ const Blog = () => {
                                 <p className="text-gray-600 m-1">{comment.text}</p>
                                 {comment.media && (
                                   <img
-                                    src={`http://localhost:5000/uploads/${comment.media}`}
+                                    src={`https://espsy.onrender.com/uploads/${comment.media}`}
                                     alt="Comment media"
                                     className="mt-2 w-full max-h-48 object-cover rounded"
                                   />

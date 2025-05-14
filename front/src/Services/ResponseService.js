@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:5000/api/responses';  // Adjust as needed
+const API_URL = 'https://espsy.onrender.com/api/responses';  // Adjust as needed
 
 const getAllResponses = async (filters = {}, includeQuestions = true) => {
   const params = new URLSearchParams();
@@ -22,7 +22,7 @@ const deleteResponse = async (responseId) => {
 
 
 const addResultToResponse= async (id, result) =>{
-  return axios.put(`http://localhost:5000/api/responses/add-result/${id}`, { result });
+  return axios.put(`https://espsy.onrender.com/api/responses/add-result/${id}`, { result });
 }
 
 

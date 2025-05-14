@@ -107,7 +107,7 @@ const ReportDetailsModal = ({ report, onClose }) => {
                   <div className="mt-3">
                     <div className="mt-1">
                       <a
-                        href={`http://localhost:5000${messageDetails.media.url}`}
+                        href={`https://espsy.onrender.com${messageDetails.media.url}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-blue-600 hover:underline"

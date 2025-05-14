@@ -19,7 +19,7 @@ const RatingModal = ({ psychologist, onClose, onSubmit }) => {
   const getImageUrl = (user) => {
     console.log("User for image:", user);
     return user?.image_user
-      ? `http://localhost:5000/uploads/${user.image_user}`
+      ? `https://espsy.onrender.com/uploads/${user.image_user}`
       : "https://via.placeholder.com/40";
   };
 
@@ -123,7 +123,7 @@ const Doctors = () => {
   const getImageUrl = (user) => {
     console.log("User for image:", user);
     return user?.image_user
-      ? `http://localhost:5000/uploads/${user.image_user}`
+      ? `https://espsy.onrender.com/uploads/${user.image_user}`
       : "https://via.placeholder.com/40";
   };
   useEffect(() => {

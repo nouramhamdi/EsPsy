@@ -23,7 +23,7 @@ const TestPage = () => {
 
   // Load test metadata + questions
   useEffect(() => {
-    axios.get(`http://localhost:5000/tests/${testId}`)
+    axios.get(`https://espsy.onrender.com/tests/${testId}`)
       .then(response => {
         setQuestions(response.data.questions);
         setTestDuration(response.data.duration * 60);
@@ -38,7 +38,7 @@ const TestPage = () => {
     const fetchUserTestResponse = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/test-responses/${testId}/${userId}`
+          `https://espsy.onrender.com/test-responses/${testId}/${userId}`
         );
 
         if (response.data && response.data.length > 0) {
@@ -91,7 +91,7 @@ const TestPage = () => {
       setSelectedOption(null);
     } else {
       setLoadingResults(true);
-      axios.post("http://localhost:5000/test-responses", {
+      axios.post("https://espsy.onrender.com/test-responses", {
         testId,
         userId,
         answers,

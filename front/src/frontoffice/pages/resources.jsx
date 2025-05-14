@@ -694,7 +694,7 @@ function Resources() {
                     <div className="relative h-52 mb-4 overflow-hidden rounded-lg bg-gray-200 flex items-center justify-center">
                       {resource.urifiles && resource.urifiles.length > 0 && resource.urifiles[0].startsWith('/uploads/images') ? (
                         <img
-                          src={`http://localhost:5000${resource.urifiles[0]}`}
+                          src={`https://espsy.onrender.com${resource.urifiles[0]}`}
                           alt={resource.title}
                           className="w-full h-full object-cover"
                         />
@@ -814,7 +814,7 @@ function Resources() {
                   <div className="relative h-52 mb-4 overflow-hidden rounded-lg bg-gray-200 flex items-center justify-center">
                     {resource.urifiles && resource.urifiles.length > 0 && resource.urifiles[0].startsWith('/uploads/images') ? (
                       <img
-                        src={`http://localhost:5000${resource.urifiles[0]}`}
+                        src={`https://espsy.onrender.com${resource.urifiles[0]}`}
                         alt={resource.title}
                         className="w-full h-full object-cover"
                       />
@@ -1016,7 +1016,7 @@ function Resources() {
                                 fileType = 'other';
                               }
 
-                              const fileUrl = `http://localhost:5000${file}`;
+                              const fileUrl = `https://espsy.onrender.com${file}`;
 
                               switch (fileType) {
                                 case 'image':

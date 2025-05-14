@@ -88,7 +88,7 @@ export default function SignIn() {
     }
 
     try {
-      const response = await axios.post("http://localhost:5000/users/login", formData);
+      const response = await axios.post("https://espsy.onrender.com/users/login", formData);
 
       localStorage.setItem("token", response.data.token);
       const loggeduser = await userServices.getSessionUser();
@@ -127,7 +127,7 @@ export default function SignIn() {
   };
 
   const handleGoogleLogin = () => {
-    window.location.href = 'http://localhost:5000/auth/google';
+    window.location.href = 'https://espsy.onrender.com/auth/google';
   };
 
   return (

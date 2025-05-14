@@ -78,7 +78,7 @@ export default function ForgotPassword() {
 
     try {
         const response = await axios.post(
-        "http://localhost:5000/users/forgot-password",
+        "https://espsy.onrender.com/users/forgot-password",
         { email: formData.email }
       );
 

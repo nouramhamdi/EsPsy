@@ -40,7 +40,7 @@ export default function VerifyAccount() {
       try {
         // Call verification endpoint
         const response = await axios.get(
-          `http://localhost:5000/users/verify-account/${token}`
+          `https://espsy.onrender.com/users/verify-account/${token}`
         );
 
         if (response.data.success) {

@@ -145,7 +145,7 @@ const AddEvent = () => {
             imageType: eventData.eventPicture && eventData.eventPicture.type === 'ai-generated-url' ? 'ai-url' : 'file'
         });
 
-        const response = await axios.post('http://localhost:5000/events/add', formData, {
+        const response = await axios.post('https://espsy.onrender.com/events/add', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:5000/tests';
+const API_URL = 'https://espsy.onrender.com/tests';
 
 
 const updateTest = async (id, updatedTest) => {
@@ -29,7 +29,7 @@ const uploadImage = async (file) => {
   formData.append('image', file);
 
   try {
-    const response = await axios.post('http://localhost:5000/test/upload-image', formData, {
+    const response = await axios.post('https://espsy.onrender.com/test/upload-image', formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },

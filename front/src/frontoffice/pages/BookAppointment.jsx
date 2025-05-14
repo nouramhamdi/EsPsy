@@ -21,7 +21,7 @@ const BookAppointment = () => {
   const getImageUrl = (user) => {
     console.log("User for image:", user);
     return user?.image_user
-      ? `http://localhost:5000/uploads/${user.image_user}`
+      ? `https://espsy.onrender.com/uploads/${user.image_user}`
       : "https://via.placeholder.com/40";
   };
   // Notification handler

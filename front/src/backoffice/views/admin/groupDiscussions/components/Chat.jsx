@@ -72,7 +72,7 @@ const Chat = ({GroupId,openChat,toggleChat}) => {
 
   useEffect(() => {
     // Initialize socket and assign to ref
-    socket.current = io("http://localhost:5000", {
+    socket.current = io("https://espsy.onrender.com", {
       transports: ['websocket']
     });
   
@@ -174,7 +174,7 @@ const Chat = ({GroupId,openChat,toggleChat}) => {
     formData.append('file', file);
 
     try {
-      const response = await axios.post('http://localhost:5000/grp/upload', formData, {
+      const response = await axios.post('https://espsy.onrender.com/grp/upload', formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
 
@@ -262,7 +262,7 @@ const handleSendAudio = async () => {
     const formData = new FormData();
     formData.append('file', audioBlob, 'recording.wav');
     
-    const response = await axios.post('http://localhost:5000/grp/upload', formData, {
+    const response = await axios.post('https://espsy.onrender.com/grp/upload', formData, {
       headers: { 'Content-Type': 'multipart/form-data' }
     });
     
@@ -355,7 +355,7 @@ const toggleRecording = () => {
                 <div className="flex items-start space-x-2 min-w-36">
                   {msg.sender._id !== loggedUser._id && (
                     <img
-                      src={`http://localhost:5000/uploads/${loggedUser.image_user}`}
+                      src={`https://espsy.onrender.com/uploads/${loggedUser.image_user}`}
                       alt="avatar"
                       className="w-8 h-8 rounded-full object-cover"
                     />
@@ -369,7 +369,7 @@ const toggleRecording = () => {
                       <>
                         {msg.media.type === 'image' && (
                           <img
-                            src={`http://localhost:5000${msg.media.url}`}
+                            src={`https://espsy.onrender.com${msg.media.url}`}
                             alt="uploaded"
                             className="max-h-48 max-w-48 mt-2 rounded"
                           />
@@ -378,7 +378,7 @@ const toggleRecording = () => {
                           <video
                             controls
                             className="max-h-48 max-w-48 mt-2 rounded"
-                            src={`http://localhost:5000${msg.media.url}`}
+                            src={`https://espsy.onrender.com${msg.media.url}`}
                           />
                         )}
 
@@ -425,7 +425,7 @@ const toggleRecording = () => {
                               {/* Hidden Audio Element */}
                               <audio
                                 ref={audioRef}
-                                src={`http://localhost:5000${msg.media.url}`}
+                                src={`https://espsy.onrender.com${msg.media.url}`}
                                 onTimeUpdate={() => {
                                   if (audioRef.current.duration) {
                                     setProgress((audioRef.current.currentTime / audioRef.current.duration) * 100);
@@ -447,7 +447,7 @@ const toggleRecording = () => {
                               className={`w-6 h-6 ${msg.sender._id !== loggedUser._id ? "text-[#1977cc]" : "text-white"}`}
                             />                            {/* PDF Link */}
                             <a
-                              href={`http://localhost:5000${msg.media.url}`}
+                              href={`https://espsy.onrender.com${msg.media.url}`}
                               target="_blank"
                               rel="noopener noreferrer"
                               className={`${msg.sender._id !== loggedUser._id ? "text-[#1977cc]" : "text-white"}`}
@@ -465,7 +465,7 @@ const toggleRecording = () => {
                               />
                               {/* Text File Link */}
                               <a
-                                href={`http://localhost:5000${msg.media.url}`}
+                                href={`https://espsy.onrender.com${msg.media.url}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className={`${msg.sender._id !== loggedUser._id ? "text-[#1977cc]" : "text-white"}`}

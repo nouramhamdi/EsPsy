@@ -1,6 +1,6 @@
 const Reservation = require('../Models/reservationModel');
 const Event = require('../Models/event');
-const { sendReservationConfirmation } = require('../Services/emailService');
+const { sendReservationConfirmation } = require('../services/emailService');
 
 // Fonction pour ajouter une nouvelle réservation
 exports.AjouterReservation = async (req, res) => {

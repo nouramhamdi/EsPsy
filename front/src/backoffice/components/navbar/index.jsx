@@ -35,7 +35,7 @@ const Navbar = (props) => {
 
     const getImageUrl = () => {
       return loggedUser?.image_user 
-        ? `http://localhost:5000/uploads/${loggedUser.image_user}`
+        ? `https://espsy.onrender.com/uploads/${loggedUser.image_user}`
         : avatar;
     };
   

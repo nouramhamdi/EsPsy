@@ -1,7 +1,7 @@
 import axios from "axios";
 
 axios.defaults.withCredentials = true;
-const API_URL = "http://localhost:5000/grp"; 
+const API_URL = "https://espsy.onrender.com/grp"; 
 
 const groupServices = {
   getAllGroups: async () => {

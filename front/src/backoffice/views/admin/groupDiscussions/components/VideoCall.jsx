@@ -21,7 +21,7 @@ const VideoCall = () => {
   useEffect(() => {
     const initializeCall = async () => {
       try {
-        socketRef.current = io("http://localhost:5000", { transports: ["websocket"] });
+        socketRef.current = io("https://espsy.onrender.com", { transports: ["websocket"] });
 
         myPeer.current = new Peer(undefined, {
           host: "localhost",

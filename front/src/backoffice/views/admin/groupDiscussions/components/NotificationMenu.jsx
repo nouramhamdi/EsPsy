@@ -26,7 +26,7 @@ const NotificationMenu = () => {
 
   // Sample notifications (replace with real data)
   useEffect(() => {
-    socket.current = io("http://localhost:5000", {
+    socket.current = io("https://espsy.onrender.com", {
       transports: ['websocket']
     });
 
@@ -103,7 +103,7 @@ const NotificationMenu = () => {
                 >
                   {/* Avatar */}
                   <img
-                    src={`http://localhost:5000/uploads/${loggedUser.image_user}`}
+                    src={`https://espsy.onrender.com/uploads/${loggedUser.image_user}`}
                     alt="avatar"
                     className="w-8 h-8 rounded-full object-cover"
                   />

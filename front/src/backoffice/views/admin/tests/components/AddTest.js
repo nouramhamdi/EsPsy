@@ -92,7 +92,7 @@ const AddTest = () => {
     setLoading(true);
   
     try {
-      const response = await axios.post('http://localhost:5000/test/generate-image', {
+      const response = await axios.post('https://espsy.onrender.com/test/generate-image', {
         prompt: imageDescription,
       });
   
@@ -112,14 +112,14 @@ const AddTest = () => {
     if (!generatedImage) return;
   
     try {
-      const response = await axios.post('http://localhost:5000/save-generated-image', {
+      const response = await axios.post('https://espsy.onrender.com/save-generated-image', {
         url: generatedImage
       });
   
       if (response.data?.fileName) {
         const savedFileName = response.data.fileName;
   
-        setUploadedImage(`http://localhost:5000/uploads/${savedFileName}`); // For UI preview
+        setUploadedImage(`https://espsy.onrender.com/uploads/${savedFileName}`); // For UI preview
         setImageFile(null); // Make sure file upload is disabled
         setNewTest((prevTest) => ({
           ...prevTest,
@@ -162,12 +162,12 @@ const AddTest = () => {
         // Debug: Check what's being sent
         console.log("Form Data being sent:", formData);
   
-        response = await axios.post("http://localhost:5000/tests", formData, {
+        response = await axios.post("https://espsy.onrender.com/tests", formData, {
           headers: { "Content-Type": "multipart/form-data" },
         });
   
       } else if (newTest.image) {
-        response = await axios.post("http://localhost:5000/tests", {
+        response = await axios.post("https://espsy.onrender.com/tests", {
           title: newTest.title,
           description: newTest.description,
           category: newTest.category,

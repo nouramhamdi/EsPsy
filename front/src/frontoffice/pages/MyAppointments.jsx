@@ -21,7 +21,7 @@ const FeedbackModal = ({ isOpen, appointment, loggedUser, onSubmit, onClose }) =
   const getImageUrl = (user) => {
     console.log("User for image:", user);
     return user?.image_user
-      ? `http://localhost:5000/uploads/${appointment.user.image_user}`
+      ? `https://espsy.onrender.com/uploads/${appointment.user.image_user}`
       : "https://via.placeholder.com/40";
   };
 
@@ -152,7 +152,7 @@ const MyAppointments = () => {
                                     <div className="flex-shrink-0 w-12 h-12 bg-blue-50 rounded-lg flex items-center justify-center overflow-hidden">
                                         {appointment.psychologist?.profileImage ? (
                                             <img 
-                                             src="http://localhost:5000/uploads/${appointment.psychologist.image_user}"
+                                             src="https://espsy.onrender.com/uploads/${appointment.psychologist.image_user}"
                                              alt={appointment.psychologist.username}
                                                 className="w-full h-full object-cover"
                                                 onError={(e) => {

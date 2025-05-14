@@ -461,7 +461,7 @@ module.exports.sendEmail = async (studentEmail, date, time, appointmentId, psych
     });
   try {
     const subject = "Appointment Confirmation Request";
-    const confirmationLink = `http://localhost:5000/appointments/confirm/${appointmentId}`;
+    const confirmationLink = `https://espsy.onrender.com/appointments/confirm/${appointmentId}`;
     const rescheduleLink = `http://localhost:3000/app/appointment/${psychologistId}`;
     const htmlBody = `
        <div style="font-family: Arial, sans-serif; padding: 20px; line-height: 1.6;">

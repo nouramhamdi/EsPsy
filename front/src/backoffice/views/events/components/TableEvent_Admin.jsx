@@ -20,7 +20,7 @@ const TableEvent = () => {
 
     if (loggedUser && loggedUser.role === "psychologist") {
       // Récupérer uniquement les événements du psychologue connecté
-      axios.get(`http://localhost:5000/events/psychologist/${loggedUser._id}`)
+      axios.get(`https://espsy.onrender.com/events/psychologist/${loggedUser._id}`)
         .then((response) => {
           // Pour les psychologues, on affiche tous les événements, y compris les annulés
           setEvents(response.data);

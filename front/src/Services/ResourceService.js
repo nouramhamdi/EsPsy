@@ -1,7 +1,7 @@
 import axios from "axios";
 
 axios.defaults.withCredentials = true;
-const API_URL = "http://localhost:5000/resources";
+const API_URL = "https://espsy.onrender.com/resources";
 
 const resourceServices = {
   addResource: async (userData, files) => {

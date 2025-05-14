@@ -5,7 +5,7 @@ const PsychologistsSection = () => {
   const [psychologists, setPsychologists] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:5000/users/psychologists")
+    axios.get("https://espsy.onrender.com/users/psychologists")
       .then((res) => setPsychologists(res.data))
       .catch((err) => console.error(err));
   }, []);
@@ -24,7 +24,7 @@ const PsychologistsSection = () => {
               <div className="team-member d-flex align-items-start">
                 <div className="pic">
                   <img
-                    src={`http://localhost:5000/uploads/${psych.image_user}`}
+                    src={`https://espsy.onrender.com/uploads/${psych.image_user}`}
                     className="img-fluid"
                     alt={psych.fullname}
                   />

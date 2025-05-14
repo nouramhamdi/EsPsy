@@ -15,7 +15,7 @@ const EventsSection = () => {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/events');
+        const response = await axios.get('https://espsy.onrender.com/events');
         setEvents(response.data);
         setFilteredEvents(response.data);
       } catch (error) {

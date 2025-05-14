@@ -5,7 +5,7 @@ class OpenAIService {
   constructor() {
     this.recommendationApiKey = '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';
     this.translationApiKey = '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';
-    this.baseURL = 'http://localhost:5000/api';
+    this.baseURL = 'https://espsy.onrender.com/api';
   }
 
   // Méthode pour obtenir des recommandations personnalisées basées sur les préférences de l'utilisateur

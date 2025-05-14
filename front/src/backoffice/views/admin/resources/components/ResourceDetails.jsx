@@ -113,7 +113,7 @@ export default function ResourceDetails() {
                   const isAudio = ['mp3', 'wav'].includes(fileType);
                   
                   // Construire l'URL complète
-                  const fullUrl = uri.startsWith('http') ? uri : `http://localhost:5000${uri}`;
+                  const fullUrl = uri.startsWith('http') ? uri : `https://espsy.onrender.com${uri}`;
 
                   return (
                     <div key={index} className="bg-gray-50 rounded-lg p-4 border border-gray-200">

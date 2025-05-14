@@ -37,7 +37,7 @@ const EventsSection = () => {
     }
 
     try {
-      const response = await axios.get(`http://localhost:5000/reservations/user/${userId}`);
+      const response = await axios.get(`https://espsy.onrender.com/reservations/user/${userId}`);
       console.log("Réponse complète des réservations:", response);
       console.log("Données des réservations:", response.data);
 
@@ -60,7 +60,7 @@ const EventsSection = () => {
     // Récupérer tous les événements
     const fetchEvents = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/events");
+        const response = await axios.get("https://espsy.onrender.com/events");
         console.log("Événements récupérés:", response.data);
 
         // Filtrer les événements pour exclure ceux qui ont le statut "cancelled"

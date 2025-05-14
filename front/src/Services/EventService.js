@@ -1,7 +1,7 @@
 import axios from "axios";
 
 axios.defaults.withCredentials = true;
-const API_URL = "http://localhost:5000/events"; // Adjust the URL based on your backend
+const API_URL = "https://espsy.onrender.com/events"; // Adjust the URL based on your backend
 
 const EventServices = {
  

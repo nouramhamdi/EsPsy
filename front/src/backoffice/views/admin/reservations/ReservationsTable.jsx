@@ -13,7 +13,7 @@ const ReservationsTable = () => {
   useEffect(() => {
     // Récupérer les réservations depuis l'API
     axios
-      .get("http://localhost:5000/reservations/tous")
+      .get("https://espsy.onrender.com/reservations/tous")
       .then((response) => {
         setReservations(response.data.reservations || []);
       })
