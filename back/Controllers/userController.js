@@ -454,7 +454,7 @@ exports.forgotPassword = async (req, res) => {
 
     const token = createToken(user._id); 
     
-    const verificationUrl = `https://espsyy.vercel.app/auth/verify-account/${token}`;
+    const verificationUrl = `https://espsyy-raniakhedris-projects.vercel.app/auth/verify-account/${token}`;
 
     await sendVerificationEmail(email, verificationUrl);
 

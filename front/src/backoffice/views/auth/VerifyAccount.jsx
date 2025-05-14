@@ -65,7 +65,7 @@ export default function VerifyAccount() {
           }
           else{
             if(loggedUser.role==="student"){
-              window.location.href = 'https://espsyy.vercel.app/app';
+              window.location.href = 'https://espsyy-raniakhedris-projects.vercel.app/app';
              }
              else{
                navigate('/admin')
