@@ -13,7 +13,7 @@ export default function Admin(props) {
   
   const loggedUser = JSON.parse(localStorage.getItem("loggedUser"));
   if(loggedUser.role==="student" || !loggedUser){
-    window.location.href = 'http://localhost:3000/Error';
+    window.location.href = 'https://espsyy.vercel.app/Error';
   }
 
   const { ...rest } = props;

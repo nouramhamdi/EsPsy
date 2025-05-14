@@ -189,7 +189,7 @@ export default function SignUp() {
         const loggeduser = response.user;
         localStorage.setItem("loggedUser", JSON.stringify(loggeduser));
         await userServices.MailAfterSignUp(loggeduser._id);
-        window.location.href = 'http://localhost:3000/app';
+        window.location.href = 'https://espsyy.vercel.app/app';
       }
       else{
         showNotification("You have to send Registration Request","info" );
