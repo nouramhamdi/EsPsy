@@ -78,7 +78,7 @@ app.use(session({
   saveUninitialized : true,
   cookie: {
     secure: true, // must be true for HTTPS
-    sameSite: "none", // must be "none" for cross-site
+    sameSite: "none", // must be all lowercase for express-session
     maxAge: 6 * 60 * 60 * 1000,
     httpOnly: true
   }

@@ -345,6 +345,12 @@ module.exports.login = async (req, res) => {
     });
     res.status(200).json({ user });
   } catch (error) {
+    if (
+      error.message === "incorrect password" ||
+      error.message === "incorrect email"
+    ) {
+      return res.status(401).json({ message: "Invalid email or password" });
+    }
     res.status(500).json({ message: error.message });
   }
 };
