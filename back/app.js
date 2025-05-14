@@ -76,9 +76,13 @@ app.use(session({
   secret: "token",
   resave: false,
   saveUninitialized : true,
-  cookie: { secure: false , maxAge: 6 *60 * 60 * 1000,httpOnly: true} 
+  cookie: {
+    secure: true, // must be true for HTTPS
+    sameSite: "none", // must be "none" for cross-site
+    maxAge: 6 * 60 * 60 * 1000,
+    httpOnly: true
+  }
 }))
-
 
 app.use(passport.initialize());
 app.use(passport.session());

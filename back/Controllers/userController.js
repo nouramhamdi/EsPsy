@@ -337,7 +337,12 @@ module.exports.login = async (req, res) => {
     req.session.user = user;
     req.session.save();
 
-    res.cookie("this_is_jstoken", token, { httpOnly: false, maxAge: maxAge * 1000 });
+    res.cookie("this_is_jstoken", token, {
+      httpOnly: false,
+      maxAge: maxAge * 1000,
+      sameSite: "none",
+      secure: true
+    });
     res.status(200).json({ user });
   } catch (error) {
     res.status(500).json({ message: error.message });
