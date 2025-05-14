@@ -72,8 +72,7 @@ EsPsy is a platform that centralizes psychological support, simplifies access to
 
 ## Advanced Features 🚀  
 ✔️ AI-Chatbot powered by deepseek  
-✔️ AI-powered content generation (Images,titles,Descriptions)   
-✔️ Sentiment analysis using Hugging Face  
+✔️ AI-powered content generation (Images,titles,Descriptions)    
 ✔️ Real-time chat using WebSocket for smooth and instant communication    
 ✔️ Email alerts    
 ✔️ detailed PDF report generation  
