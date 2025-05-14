@@ -36,7 +36,7 @@ module.exports.getPsychologistAvailability = async (req, res) => {
 
 
 
-
+//okay
 // Add a new user
 module.exports.addUser = async (req, res) => {
   try {
