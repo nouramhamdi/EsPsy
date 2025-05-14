@@ -186,7 +186,7 @@ export default function SignUp() {
      
 
       if(dataToSend.role==="student" ){
-        const loggeduser = response.addedUser
+        const loggeduser = response.user;
         localStorage.setItem("loggedUser", JSON.stringify(loggeduser));
         await userServices.MailAfterSignUp(loggeduser._id);
         window.location.href = 'http://localhost:3000/app';
