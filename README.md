@@ -33,15 +33,15 @@ EsPsy is a platform that centralizes psychological support, simplifies access to
 
 ## User Roles and Authentication 👥 
 🚀 The platform supports multiple user roles with distinct registration and management processes .  
-✔️ Student: Can self-register via the sign-up form or using Google/Facebook/GitHub authentication.  
-✔️ Psychologist, Teacher, Associative Member: Accounts created and managed only by the Admin.  
+✔️ Student: Can self-register via the sign-up form or using Google authentication.  
+✔️ Psychologist, Teacher, Student : Accounts created and managed only by the Admin.  
 ✔️ Admin: Has full access to manage all users and platform settings.  
 
 ## AI-Powered Depression Detection & Personalized Recommendations 🤖🧠
 <img align="right" width=200px height=200px alt="side_sticker" src="https://media.giphy.com/media/TEnXkcsHrP4YedChhA/giphy.gif" />  
 
 ###### Depression Score Detection System:
-✔️ We have implemented a machine learning-based model trained on a dedicated dataset to evaluate a student's mental health score based on their activity, responses, and tracked wellbeing data.
+✔️ We have implemented a machine learning-based model trained on a dedicated dataset to evaluate a student's mental health score based on their activity, responses, and tracked wellbeing data. This model is specifically designed to detect students' stress and depression levels and recommend personalized solutions based on their mental health status.
 
 ###### Dataset Utilization:
 ✔️ Our model is trained using a curated dataset that reflects common symptoms and behavioral indicators of stress, ensuring accurate and data-driven assessment.
@@ -61,7 +61,7 @@ EsPsy is a platform that centralizes psychological support, simplifies access to
 ## Publication news 📰 
 ✔️ Moderators can publish articles and posts related to news and developments in the mental health sector and students can interact with posts through comments, reactions, and discussions.  
 
-## Workshops & Events 🎓 
+##  Events 🎓 
 ✔️ A dedicated space for organizing and announcing mental health workshops, training sessions, and awareness events targeting students and university staff.  
 
 ## Consultations with Psychiatrists 🗓️  
@@ -71,25 +71,20 @@ EsPsy is a platform that centralizes psychological support, simplifies access to
 ✔️ A space where students can share their own problems and access helpful solutions tailored to similar issues, fostering self-reflection and support through practical guidance.   
 
 ## Advanced Features 🚀  
-✔️ AI-Chatbot powered by Gemini   
+✔️ AI-Chatbot powered by deepseek  
 ✔️ AI-powered content generation (Images,titles,Descriptions)   
 ✔️ Sentiment analysis using Hugging Face  
 ✔️ Real-time chat using WebSocket for smooth and instant communication    
 ✔️ Email alerts    
 ✔️ detailed PDF report generation  
 ✔️ usage statistics tracking    
-✔️ QR code generation   
-✔️ Bad words filter    
-✔️ Rich text editing with CKEditor  
+✔️ QR code generation      
+ 
 
 ## 🎨 UI/UX Design  
 Our platform features a modern, clean, and user-friendly interface designed with students and university staff in mind.  
 💡 The UI/UX was carefully crafted to ensure intuitive navigation, clear layout, and accessibility for all user roles.  
 📱 The interface is fully **responsive**, adapting seamlessly across desktops, tablets, and smartphones for a smooth experience on any device.   
-
-## 💻 Final solution
-<img align="right" width=200px height=200px alt="side_sticker" src="https://media.giphy.com/media/dRiZq6h7814nhldyza/giphy.gif?cid=ecf05e47e8hcz6ym1zshf9asfpo25pbad0uxg2v4sca9q6if&ep=v1_gifs_search&rid=giphy.gif&ct=g" />    
-<img src="https://github.com/user-attachments/assets/a082a64c-a8a1-460b-bee9-9a4811bae21e" width="630"/>
 
 ## 🙏 Dedication
 We would like to express our sincere gratitude to **ESPRIT University** for giving us the opportunity to work on this meaningful and innovative project.  
