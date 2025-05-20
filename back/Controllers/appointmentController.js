@@ -462,7 +462,7 @@ module.exports.sendEmail = async (studentEmail, date, time, appointmentId, psych
   try {
     const subject = "Appointment Confirmation Request";
     const confirmationLink = `https://espsy.onrender.com/appointments/confirm/${appointmentId}`;
-    const rescheduleLink = `https://espsyy-raniakhedris-projects.vercel.app/app/appointment/${psychologistId}`;
+    const rescheduleLink = `https://espsydeploy-git-main-raniakhedris-projects.vercel.app/app/appointment/${psychologistId}`;
     const htmlBody = `
        <div style="font-family: Arial, sans-serif; padding: 20px; line-height: 1.6;">
         <h2 style="color: #2563eb;">Appointment Confirmation</h2>

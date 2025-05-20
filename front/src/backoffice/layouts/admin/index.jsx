@@ -13,7 +13,7 @@ export default function Admin(props) {
   
   const loggedUser = JSON.parse(localStorage.getItem("loggedUser"));
   if(loggedUser.role==="student" || !loggedUser){
-    window.location.href = 'https://espsyy-raniakhedris-projects.vercel.app/Error';
+    window.location.href = 'https://espsydeploy-git-main-raniakhedris-projects.vercel.app/Error';
   }
 
   const { ...rest } = props;

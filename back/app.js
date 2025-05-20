@@ -67,7 +67,7 @@ app.set('view engine', 'jade');
   app.use(express.static(path.join(__dirname, 'public')));
   app.use(bodyParser.json());
 app.use(cors({
-  origin: 'https://espsyy-raniakhedris-projects.vercel.app', // Your client URL
+  origin: 'https://espsydeploy-git-main-raniakhedris-projects.vercel.app', // Your client URL
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
 }));
@@ -269,7 +269,7 @@ var server =http.createServer(app);
 const { Server } = require('socket.io');
 const io = new Server(server, {
   cors: {
-    origin: 'https://espsyy-raniakhedris-projects.vercel.app', // Your client URL
+    origin: 'https://espsydeploy-git-main-raniakhedris-projects.vercel.app', // Your client URL
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
   }
