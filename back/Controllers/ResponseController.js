@@ -45,7 +45,7 @@ exports.addResult = async (req, res) => {
           <p>Additionally, we recommend booking a follow-up appointment with your psychologist to discuss your results in more detail and plan any next steps.</p>
     
           <!-- Button to book appointment -->
-          <a href="https://espsydeploy-git-main-raniakhedris-projects.vercel.app/app/Doctors" 
+          <a href="https://espsydeploy.vercel.app/app/Doctors" 
              style="background-color: #1977CC; color: white; padding: 12px 20px; text-decoration: none; border-radius: 5px; display: inline-block; font-size: 16px; margin-top: 20px; text-align: center;">
             Book an Appointment
           </a>

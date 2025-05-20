@@ -12,7 +12,7 @@ import ChatBot from 'frontoffice/components/ChatBot';
 const UserLayout = () => {  
   const loggedUser = JSON.parse(localStorage.getItem('loggedUser'));
   if(loggedUser.role!=="student" || !loggedUser){
-    window.location.href = 'https://espsydeploy-git-main-raniakhedris-projects.vercel.app/Error';
+    window.location.href = 'https://espsydeploy.vercel.app/Error';
   }
 
   useEffect(() => {

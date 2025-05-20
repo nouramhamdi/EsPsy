@@ -27,7 +27,7 @@ router.get(
 
         if (existingUser) {
            const token = createToken(existingUser.id); 
-           const verificationUrl = `https://espsydeploy-git-main-raniakhedris-projects.vercel.app/auth/verify-account/${token}`; 
+           const verificationUrl = `https://espsydeploy.vercel.app/auth/verify-account/${token}`; 
            existingUser.verificationToken = token;
            await existingUser.save();
            res.redirect(verificationUrl);
@@ -39,7 +39,7 @@ router.get(
             role: "student",
           });
            const token = createToken(newUser.id); 
-           const verificationUrl = `https://espsydeploy-git-main-raniakhedris-projects.vercel.app/auth/verify-account/${token}`; 
+           const verificationUrl = `https://espsydeploy.vercel.app/auth/verify-account/${token}`; 
            newUser.verificationToken = token;
            await newUser.save();
            res.redirect(verificationUrl);
@@ -47,7 +47,7 @@ router.get(
 
        }catch (error) {
           console.error('Authentication error:', error);
-          res.redirect(`https://espsydeploy-git-main-raniakhedris-projects.vercel.app/auth/sign-in`);
+          res.redirect(`https://espsydeploy.vercel.app/auth/sign-in`);
         }
   }
 );

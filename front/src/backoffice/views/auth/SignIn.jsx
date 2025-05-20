@@ -106,7 +106,7 @@ export default function SignIn() {
       }
 
       if(loggeduser.user.role==="student"){
-       window.location.href = 'https://espsydeploy-git-main-raniakhedris-projects.vercel.app/app';
+       window.location.href = 'https://espsydeploy.vercel.app/app';
       }
       else{
         if(loggeduser.user.RequestRegistration === true && loggeduser.user.RequestResponse === false ) {
